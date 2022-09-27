@@ -2,12 +2,31 @@ This is a team assignment; each team should complete and turn in a PDF created f
 
 Description of dataset
 What is the data source? (1-2 sentences on where the data is coming from, dates included, etc.)
+The data source is from the California Smokers Cohort (CSC) 2011 through UC San Diego. These data are from a survey designed to investigate factors associated with tobacco quitting behaviors, sponsored/funded by CDPH.
 
 How does the dataset relate to the group problem statement and question?
+Through these data, CDPH will better understand tobacco use and behaviors among smokers in California and be able to design an implementation strategies in high-risk communities to increase quitting behaviors.
+
 Import statement
 NOTE: Please use datasets available in the PHW251 Project Data github repo (Links to an external site.) (this is important to make sure everyone is using the same datasets)
 Use appropriate import function and package based on the type of file
+
+
 ```{r}
+
+library(tidyverse)
+library(readr)
+
+```
+
+```{r}
+
+#creating a file path
+file_path <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_smoker_data.csv"
+
+
+#importing full file to see what it looks like
+smoker_data <- read_csv(file_path)
 
 ```
 
