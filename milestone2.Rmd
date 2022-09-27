@@ -25,6 +25,7 @@ Use appropriate import function and package based on the type of file
 
 library(tidyverse)
 library(readr)
+library(janitor)
 
 ```
 
@@ -46,20 +47,24 @@ Utilize function arguments to control relevant components (i.e. change column ty
 Document the import process
 ```{r}
 
+#ask if we need to rename everything or just the ones we use
 #change column names in smoker_data
+clean_smoker_data <- clean_names(smoker_data)
+clean_smoker_data_rename <- rename(clean_names, id = psraid, )
 
 
 #change column names in race_data
 
 
 #need to change a few values (in smoker_data and race_data labeled as DO NOT READ...change to NA?)
-
+#will need to look this up
 
 ```
 
 
 Identify 5+ data elements required for your specified scenario. If <5 elements are required to complete the analysis, please choose additional variables of interest in the data set to explore in this milestone.
-
+#post a question on ed discussion to see if we need to pick 5 from each data set or 5 total
+#actually pick the elements (columns) that will help answer the project question
 
 
 
@@ -72,6 +77,9 @@ Utilize functions or resources in RStudio to determine the types of each data el
 
 Identify the desired type/format for each variable—will you need to convert any columns to numeric or another type? 
 ```{r}
+
+#will depend on what we element we pick, maybe just do 1 to get a point
+#post another question on ed discussion board
 
 ```
 
