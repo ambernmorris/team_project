@@ -22,11 +22,13 @@ library(readr)
 ```{r}
 
 #creating a file path
-file_path <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_smoker_data.csv"
+file_path_demographic <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_smoker_data.csv"
+file_path_race <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_outcome_race_data.csv"
 
 
 #importing full file to see what it looks like
-smoker_data <- read_csv(file_path)
+smoker_data <- read_csv(file_path_demographic)
+race_data <- read_csv(file_path_race)
 
 ```
 
