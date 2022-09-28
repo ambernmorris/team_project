@@ -32,12 +32,12 @@ library(janitor)
 ```{r}
 
 #creating a file path for both data sets
-file_path_demographic <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_smoker_data.csv"
+file_path_smoker <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_smoker_data.csv"
 file_path_race <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_outcome_race_data.csv"
 
 
 #importing full file of both data sets to see what it looks like
-smoker_data <- read_csv(file_path_demographic)
+smoker_data <- read_csv(file_path_smoker)
 race_data <- read_csv(file_path_race)
 
 ```
@@ -47,29 +47,30 @@ Utilize function arguments to control relevant components (i.e. change column ty
 Document the import process
 ```{r}
 
-#ask if we need to rename everything or just the ones we use
 #change column names in smoker_data
-clean_smoker_data <- clean_names(smoker_data)
-clean_smoker_data_rename <- rename(clean_names, id = psraid, )
+#first change to all lowercase
+#then change the elements that we want to use later in the milestone to something obvious
+#lastly, subset the changed names
 
 
 #change column names in race_data
 
 
-#need to change a few values (in smoker_data and race_data labeled as DO NOT READ...change to NA?)
-#will need to look this up
+
+#i don't think we need to fix any missing values given the data elements we chose, but check back on this just in case
 
 ```
 
 
 Identify 5+ data elements required for your specified scenario. If <5 elements are required to complete the analysis, please choose additional variables of interest in the data set to explore in this milestone.
-#post a question on ed discussion to see if we need to pick 5 from each data set or 5 total
-#actually pick the elements (columns) that will help answer the project question
+
 
 
 
 Utilize functions or resources in RStudio to determine the types of each data element (i.e. character, numeric, factor)
 ```{r}
+
+
 
 ```
 
