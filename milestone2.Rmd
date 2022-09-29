@@ -10,7 +10,7 @@ The data source is from the California Smokers Cohort (CSC) 2011 through UC San 
 
 
 How does the dataset relate to the group problem statement and question?
-Through these data, CDPH will better understand tobacco use and behaviors among smokers in California and be able to design an implementation strategies in high-risk communities to increase quitting behaviors.
+Through these data, CDPH will better understand tobacco use and behaviors among smokers in California and be able to design an implementation strategies in high-risk communities to increase quitting behaviors. As we go through the milestones, the elements we use may change, but we foresee combining each data set and exploring how race, income, and cigarette brand affect heart disease outcomes. Specifically, creating a visualization to explore how these variables interact with eachother and making recommendations to CDPH based on that.
 
 
 
@@ -25,12 +25,14 @@ Use appropriate import function and package based on the type of file
 
 library(tidyverse)
 library(readr)
+library(readxl)
 library(janitor)
 
 ```
 
 ```{r}
 
+#second method
 #creating a file path for both data sets
 file_path_smoker <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_smoker_data.csv"
 file_path_race <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_outcome_race_data.csv"
@@ -47,30 +49,38 @@ Utilize function arguments to control relevant components (i.e. change column ty
 Document the import process
 ```{r}
 
-#change column names in smoker_data
-#first change to all lowercase
-#then change the elements that we want to use later in the milestone to something obvious
-#lastly, subset the changed names
+#change columns to all lowercase
+clean_smoker_data <- clean_names(smoker_data)
+
+#change column names (the elements we want to use only)
+new_smoker_data <- rename(clean_smoker_data, sex = rightsex, smoking_status = smokstat, cig_brand = smkbrand)
+
+#subset the columns we want (only the element names that were just changed above)
+updated_smoker_data <- select(new_smoker_data, c("sex", "smoking_status",
+                        "cig_brand"))
 
 
-#change column names in race_data
+#ILEAH'S PART :)
+#Ileah, I think you can do race, income, and heartdis? But open to hearing what you think!
 
 
-
-#i don't think we need to fix any missing values given the data elements we chose, but check back on this just in case
+#come back to this for converting the "do not know" to NA
 
 ```
 
 
 Identify 5+ data elements required for your specified scenario. If <5 elements are required to complete the analysis, please choose additional variables of interest in the data set to explore in this milestone.
-
+This milestone is focused on: rightsex (sex), smokstat (smoking status), smkbrand (brand of cigarettes), race (race), income (income), and heartdis (heart disease status).
 
 
 
 Utilize functions or resources in RStudio to determine the types of each data element (i.e. character, numeric, factor)
 ```{r}
 
-
+#first data set, i am not sure if this is right or if they want what each variable is (sex, smoking brand, smoking status individually?)
+typeof(updated_smoker_data)
+class(updated_smoker_data)
+str(updated_smoker_data)
 
 ```
 
@@ -79,8 +89,7 @@ Utilize functions or resources in RStudio to determine the types of each data el
 Identify the desired type/format for each variable—will you need to convert any columns to numeric or another type? 
 ```{r}
 
-#will depend on what we element we pick, maybe just do 1 to get a point
-#post another question on ed discussion board
+#Yes, converions were done above in the first question. The "DO NOT READ" were converted into NA.
 
 ```
 
@@ -90,6 +99,8 @@ Numeric: mean, median, range
 Character:  unique values/categories
 Or any other descriptives that will be useful to the analysis
 ```{r}
+
+summary(updated_smoker_data)
 
 ```
 
