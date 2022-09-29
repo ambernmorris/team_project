@@ -33,12 +33,13 @@ library(janitor)
 
 #creating a file path for both data sets
 file_path_demographic <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_smoker_data.csv"
-file_path_race <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_outcome_race_data.csv"
+#file_path_race <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_outcome_race_data.csv"
 
 
 #importing full file of both data sets to see what it looks like
 smoker_data <- read_csv(file_path_demographic)
-race_data <- read_csv(file_path_race)
+racedata <- read_csv("racedata.csv")
+View(racedata)
 
 ```
 
@@ -50,14 +51,14 @@ Document the import process
 #ask if we need to rename everything or just the ones we use
 #change column names in smoker_data
 clean_smoker_data <- clean_names(smoker_data)
-clean_smoker_data_rename <- rename(clean_names, id = psraid, )
-
+#clean_smoker_data_rename <- rename(clean_names, id = psraid, )
 
 #change column names in race_data
 
 
 #need to change a few values (in smoker_data and race_data labeled as DO NOT READ...change to NA?)
-#will need to look this up
+clean_race_data_rename$casmokes <- tolower(clean_race_data_rename$casmokes)
+
 
 ```
 
