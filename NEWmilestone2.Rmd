@@ -21,7 +21,7 @@ Use appropriate import function and package based on the type of file
 
 ```{r}
 
-#adding libraries i think we will use in this assignment
+#adding libraries
 
 library(tidyverse)
 library(readr)
@@ -32,8 +32,6 @@ library(stringr)
 ```
 
 ```{r}
-
-#second method
 #creating a file path for both data sets
 file_path_smoker <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_smoker_data.csv"
 file_path_race <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_outcome_race_data.csv"
@@ -47,15 +45,16 @@ race_data <- read_csv(file_path_race)
 
 
 **Utilize function arguments to control relevant components (i.e. change column types, column names, missing values, etc.)**
-```{r}
+```{r, smoker data set}
 
 #change columns to all lowercase
 clean_smoker_data <- clean_names(smoker_data)
 
 #change column names (the elements we want to use only)
-new_smoker_data <- rename(clean_smoker_data, sex = rightsex, smoking_status = smokstat, cig_brand = smkbrand)
+new_smoker_data <- rename(clean_smoker_data, sex = rightsex, 
+                          smoking_status = smokstat, cig_brand = smkbrand)
 
-#subset the columns we want (only the element names that were just changed above)
+#subset the columns we want (elements we want to use only)
 updated_smoker_data <- select(new_smoker_data, c("sex", "smoking_status",
                         "cig_brand"))
 
@@ -80,15 +79,32 @@ updated_smoker_data[855,3] <- "NA"
 updated_smoker_data[878,3] <- "NA"
 updated_smoker_data[949,3] <- "NA"
 
-#second data set
+head(updated_smoker_data)
+```
+
+```{r, race data set}
+
 #change columns to all lowercase
 clean_race_data <- clean_names(race_data)
 
 #change column names (the elements we want to use only)
-new_race_data <- rename(clean_race_data, heart_disease=heartdis, white=race01, black=race02, japanese=race03, chinese=race04, filipino=race05, korean=race06, asian_or_pacific_islander=race07, american_indian_or_alaskan_native=race08, mexican=race09, hispanic_latino=race10, other=race11, vietnamese=race12, asian_indian=race13, refused=race14, dont_know=race15)
+new_race_data <- rename(clean_race_data, heart_disease=heartdis, 
+                white=race01, black=race02, japanese=race03, chinese=race04, 
+              filipino=race05, korean=race06, asian_or_pacific_islander=race07,   american_indian_or_alaskan_native=race08, mexican=race09, 
+      hispanic_latino=race10, other=race11, vietnamese=race12,
+      asian_indian=race13, refused=race14, dont_know=race15)
 
-#subset the columns we want (only the element names that were just changed above)
-updated_race_data <- select(new_race_data, c("heart_disease", "income", "white", "black", "japanese", "chinese", "filipino", "korean", "asian_or_pacific_islander", "american_indian_or_alaskan_native", "mexican", "hispanic_latino", "other", "vietnamese", "asian_indian", "refused", "dont_know"))
+#subset the columns we want (elements we want to use only)
+updated_race_data <- select(new_race_data, c("heart_disease", "income", "white", 
+                      "black", "japanese", "chinese", "filipino", "korean", "asian_or_pacific_islander", "american_indian_or_alaskan_native", "mexican", 
+            "hispanic_latino", "other", "vietnamese", "asian_indian", "refused",
+            "dont_know"))
+
+#change the DO NOT READ values to NA
+updated_race_data[updated_race_data == "(DO NOT READ) Refused"] <- NA
+updated_race_data[updated_race_data == "(DO NOT READ) Don't know"] <- NA
+
+head(updated_race_data)
 
 ```
 
@@ -100,20 +116,37 @@ This milestone is focused on: rightsex (sex), smokstat (smoking status), smkbran
 
 **Utilize functions or resources in RStudio to determine the types of each data element (i.e. character, numeric, factor)**
 ```{r}
-
+#smoker data set
 typeof(updated_smoker_data$sex)
 typeof(updated_smoker_data$smoking_status)
 typeof(updated_smoker_data$cig_brand)
-
-
 ```
 
-
+```{r}
+#race data set
+typeof(updated_race_data$income)
+typeof(updated_race_data$heart_disease)
+typeof(updated_race_data$white)
+typeof(updated_race_data$black)
+typeof(updated_race_data$japanese)
+typeof(updated_race_data$chinese)
+typeof(updated_race_data$filipino)
+typeof(updated_race_data$korean)
+typeof(updated_race_data$asian_or_pacific_islander)
+typeof(updated_race_data$american_indian_or_alaskan_native)
+typeof(updated_race_data$mexican)
+typeof(updated_race_data$hispanic_latino)
+typeof(updated_race_data$other)
+typeof(updated_race_data$vietnamese)
+typeof(updated_race_data$asian_indian)
+typeof(updated_race_data$refused)
+typeof(updated_race_data$dont_know)
+```
 
 **Identify the desired type/format for each variable—will you need to convert any columns to numeric or another type?**
 ```{r}
 
-#Both data sets were assessed and determine there were not any columns that needed to be converted to another data type at this time.
+#Both data sets were assessed and determined there were not any columns that needed to be converted to another data type at this time.
 
 ```
 
@@ -123,7 +156,10 @@ Numeric: mean, median, range
 Character:  unique values/categories
 Or any other descriptives that will be useful to the analysis
 ```{r}
-
 summary(updated_smoker_data)
-
 ```
+
+```{r}
+str(updated_race_data)
+```
+
