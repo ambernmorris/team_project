@@ -1,0 +1,129 @@
+**Please do not grade this file; please grade NEWmilestone2.RMD for milestone #2 assignment**
+
+This is a team assignment; each team should complete and turn in a PDF created from an Rmd via Github. Please include code and output for the following components:
+ 
+
+
+Description of dataset
+What is the data source? (1-2 sentences on where the data is coming from, dates included, etc.)
+The data source is from the California Smokers Cohort (CSC) 2011 through UC San Diego. These data are from a survey designed to investigate factors associated with tobacco quitting behaviors, sponsored/funded by CDPH.
+
+
+
+
+How does the dataset relate to the group problem statement and question?
+Through these data, CDPH will better understand tobacco use and behaviors among smokers in California and be able to design an implementation strategies in high-risk communities to increase quitting behaviors. As we go through the milestones, the elements we use may change, but we foresee combining each data set and exploring how race, income, and cigarette brand affect heart disease outcomes. Specifically, creating a visualization to explore how these variables interact with eachother and making recommendations to CDPH based on that.
+
+
+
+Import statement
+NOTE: Please use datasets available in the PHW251 Project Data github repo (Links to an external site.) (this is important to make sure everyone is using the same datasets)
+Use appropriate import function and package based on the type of file
+
+
+```{r}
+
+#adding libraries i think we will use in this assignment
+
+library(tidyverse)
+library(readr)
+library(readxl)
+library(janitor)
+
+```
+
+```{r}
+
+#second method
+#creating a file path for both data sets
+<<<<<<< HEAD
+file_path_demographic <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_smoker_data.csv"
+#file_path_race <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_outcome_race_data.csv"
+
+
+#importing full file of both data sets to see what it looks like
+smoker_data <- read_csv(file_path_demographic)
+racedata <- read_csv("racedata.csv")
+View(racedata)
+=======
+file_path_smoker <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_smoker_data.csv"
+file_path_race <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_outcome_race_data.csv"
+
+
+#importing full file of both data sets to see what it looks like
+smoker_data <- read_csv(file_path_smoker)
+race_data <- read_csv(file_path_race)
+>>>>>>> 61ecccc1084e5a0df83529fba6b7226ffad9b919
+
+```
+
+
+Utilize function arguments to control relevant components (i.e. change column types, column names, missing values, etc.)
+Document the import process
+```{r}
+
+#change columns to all lowercase
+clean_smoker_data <- clean_names(smoker_data)
+<<<<<<< HEAD
+#clean_smoker_data_rename <- rename(clean_names, id = psraid, )
+=======
+
+#change column names (the elements we want to use only)
+new_smoker_data <- rename(clean_smoker_data, sex = rightsex, smoking_status = smokstat, cig_brand = smkbrand)
+>>>>>>> 61ecccc1084e5a0df83529fba6b7226ffad9b919
+
+#subset the columns we want (only the element names that were just changed above)
+updated_smoker_data <- select(new_smoker_data, c("sex", "smoking_status",
+                        "cig_brand"))
+
+
+<<<<<<< HEAD
+#need to change a few values (in smoker_data and race_data labeled as DO NOT READ...change to NA?)
+clean_race_data_rename$casmokes <- tolower(clean_race_data_rename$casmokes)
+
+=======
+#ILEAH'S PART :)
+#Ileah, I think you can do race, income, and heartdis? But open to hearing what you think!
+
+
+#come back to this for converting the "do not know" to NA
+>>>>>>> 61ecccc1084e5a0df83529fba6b7226ffad9b919
+
+```
+
+
+Identify 5+ data elements required for your specified scenario. If <5 elements are required to complete the analysis, please choose additional variables of interest in the data set to explore in this milestone.
+This milestone is focused on: rightsex (sex), smokstat (smoking status), smkbrand (brand of cigarettes), race (race), income (income), and heartdis (heart disease status).
+
+
+
+Utilize functions or resources in RStudio to determine the types of each data element (i.e. character, numeric, factor)
+```{r}
+
+#first data set, i am not sure if this is right or if they want what each variable is (sex, smoking brand, smoking status individually?)
+typeof(updated_smoker_data)
+class(updated_smoker_data)
+str(updated_smoker_data)
+
+```
+
+
+
+Identify the desired type/format for each variable—will you need to convert any columns to numeric or another type? 
+```{r}
+
+#Yes, converions were done above in the first question. The "DO NOT READ" were converted into NA.
+
+```
+
+
+Provide a basic description of the 5+ data elements
+Numeric: mean, median, range
+Character:  unique values/categories
+Or any other descriptives that will be useful to the analysis
+```{r}
+
+summary(updated_smoker_data)
+
+```
+
