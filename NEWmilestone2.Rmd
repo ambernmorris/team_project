@@ -94,12 +94,9 @@ clean_race_data <- clean_names(race_data)
 
 #change column names (the elements we want to use only)
 new_race_data <- rename(clean_race_data, heart_disease=heartdis, 
-    white=race01, black=race02, japanese=race03, chinese=race04, 
-filipino=race05, korean=race06, 
-asian_or_pacific_islander=race07,
-americanindian_or_alaskannative=race08, 
-mexican=race09, 
-hispanic_latino=race10, other=race11, vietnamese=race12,
+white=race01, black=race02, japanese=race03, chinese=race04, 
+filipino=race05, korean=race06, asian_or_pacific_islander=race07, americanindian_or_alaskannative=race08, mexican=race09, 
+hispanic_latino=race10, other=race11, vietnamese=race12, 
 asian_indian=race13, refused=race14, dont_know=race15)
 
 #subset the columns we want (elements we want to use only)
