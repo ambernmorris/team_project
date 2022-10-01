@@ -1,5 +1,11 @@
 **Milestone #3, due Nov 7**
 
+**PDF that is professionally prepared for presentation**
+
+**Each part of the milestone is clearly on one page (use \newpage to push to a new page)**
+
+**Only the necessary information is outputted (you should suppress, for example, entire data frame outputs)**
+
 **Clean dataset with descriptive statistics for relevant data elements**
 **Please turn in a PDF created from an Rmd with the following components**
 
