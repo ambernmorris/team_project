@@ -1,5 +1,6 @@
 **Milestone #3, due Nov 7**
 
+Make sure to follow:
 **PDF that is professionally prepared for presentation**
 
 **Each part of the milestone is clearly on one page (use \newpage to push to a new page)**
