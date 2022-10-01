@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 **This is a team assignment; each team should complete and turn in a PDF created from an Rmd via Github. Please include code and output for the following components**
 
 
