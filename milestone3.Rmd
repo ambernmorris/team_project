@@ -1,0 +1,60 @@
+**Milestone #3, due Nov 7**
+**Clean dataset with descriptive statistics for relevant data elements**
+**Please turn in a PDF created from an Rmd with the following components**
+
+**Subset rows or columns, as needed**
+```{r}
+
+```
+
+**Create new variables needed for analysis (minimum 2)**
+**New variables should be created based on existing columns; for example**
+```{r}
+
+```
+
+**Calculating a rate**
+```{r}
+
+```
+
+**Combining character strings**
+```{r}
+
+```
+
+**If no new values are needed for final tables/graphs, please create 2 new variables anyway**
+```{r}
+
+```
+
+**Clean variables needed for analysis (minimum 2)**
+Examples
+Recode invalid values
+Handle missing fields
+Recode categories
+```{r}
+
+```
+
+**If not needed for final analysis, please create at least 2 new variables anyway**
+```{r}
+
+```
+
+**Data dictionary based on clean dataset (minimum 4 data elements), including:**
+Variable name
+Data type
+Description
+One or more tables with descriptive statistics for 4 data element
+```{r}
+
+```
+
+**PDF that is professionally prepared for presentation**
+
+**Each part of the milestone is clearly on one page (use \newpage to push to a new page)**
+
+**Only the necessary information is outputted (you should suppress, for example, entire data frame outputs)**
+
+**Use of headers and sub headers to create an organized document**
