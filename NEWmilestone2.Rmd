@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 **This is a team assignment; each team should complete and turn in a PDF created from an Rmd via Github. Please include code and output for the following components**
 
 
@@ -98,16 +103,19 @@ clean_race_data <- clean_names(race_data)
 
 #change column names (the elements we want to use only)
 new_race_data <- rename(clean_race_data, heart_disease=heartdis, 
-                white=race01, black=race02, japanese=race03, chinese=race04, 
-              filipino=race05, korean=race06, asian_or_pacific_islander=race07,   american_indian_or_alaskan_native=race08, mexican=race09, 
-      hispanic_latino=race10, other=race11, vietnamese=race12,
-      asian_indian=race13, refused=race14, dont_know=race15)
+white=race01, black=race02, japanese=race03, chinese=race04, 
+filipino=race05, korean=race06, asian_or_pacific_islander=race07, 
+mexican=race09, 
+hispanic_latino=race10, other=race11, vietnamese=race12, 
+asian_indian=race13, refused=race14, dont_know=race15, 
+americanindian_or_alaskannative=race08)
 
 #subset the columns we want (elements we want to use only)
 updated_race_data <- select(new_race_data, c("heart_disease", "income", "white", 
-                      "black", "japanese", "chinese", "filipino", "korean", "asian_or_pacific_islander", "american_indian_or_alaskan_native", "mexican", 
-            "hispanic_latino", "other", "vietnamese", "asian_indian", "refused",
-            "dont_know"))
+"black", "japanese", "chinese", "filipino", "korean", 
+"asian_or_pacific_islander", "americanindian_or_alaskannative", "mexican", 
+"hispanic_latino", "other", "vietnamese", "asian_indian", "refused",
+  "dont_know"))
 
 #change the DO NOT READ values to NA
 updated_race_data[updated_race_data == "(DO NOT READ) Refused"] <- NA
@@ -144,7 +152,7 @@ typeof(updated_race_data$chinese)
 typeof(updated_race_data$filipino)
 typeof(updated_race_data$korean)
 typeof(updated_race_data$asian_or_pacific_islander)
-typeof(updated_race_data$american_indian_or_alaskan_native)
+typeof(updated_race_data$americanindian_or_alaskannative)
 typeof(updated_race_data$mexican)
 typeof(updated_race_data$hispanic_latino)
 typeof(updated_race_data$other)
@@ -155,6 +163,7 @@ typeof(updated_race_data$dont_know)
 ```
 
 **Identify the desired type/format for each variable—will you need to convert any columns to numeric or another type?**
+<<<<<<< HEAD
 ```{r}
 
 <<<<<<< HEAD
@@ -162,8 +171,10 @@ typeof(updated_race_data$dont_know)
 =======
 #Both data sets were assessed and determined there were not any columns that needed to be converted to another data type at this time.
 >>>>>>> af971914e89bc0042b4c52cb26d68fcc778afb58
+=======
+>>>>>>> 864e408e02e36995fb83e65b497a9f0d21493ef4
 
-```
+Both data sets were assessed and determined there were not any columns that needed to be converted to another data type at this time.
 
 
 **Provide a basic description of the 5+ data elements**
