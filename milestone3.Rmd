@@ -10,6 +10,25 @@ Make sure to follow:
 **Clean dataset with descriptive statistics for relevant data elements**
 **Please turn in a PDF created from an Rmd with the following components**
 
+**Milestone #1**
+
+\newpage
+
+
+**Milestone #2**
+
+\newpage
+
+**Milestone #3**
+
+```{r}
+library(readr)
+library(readxl)
+library(janitor)
+library(tidyverse)
+library(stringr)
+```
+
 **Subset rows or columns, as needed**
 ```{r}
 
