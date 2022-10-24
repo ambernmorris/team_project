@@ -20,14 +20,108 @@ Make sure to follow:
 \newpage
 
 **Milestone #3**
-
 ```{r}
+library(tidyverse)
 library(readr)
 library(readxl)
 library(janitor)
-library(tidyverse)
 library(stringr)
 ```
+
+```{r}
+file_path_smoker <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_smoker_data.csv"
+file_path_race <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_outcome_race_data.csv"
+
+smoker_data <- read_csv(file_path_smoker)
+race_data <- read_csv(file_path_race)
+
+raceclean <- clean_names(race_data)
+smokerclean <- clean_names(smoker_data)
+```
+
+
+```{r}
+#subset columns from race dataset
+race <- raceclean %>% select(id, race01, race02, race03, race04, race05, 
+race06, race07, race08, race09, race10, race11, race12, race13, race14, race15, 
+income,vereduc, wgtinlbs, htinfeet, goodhlth, harmhlth, smokalone, acqsmoke, 
+act10min,drinkfiv, heartdis, diabetes)
+```
+
+```{r}
+#rename columns
+racedata <- race %>% rename(heart_disease=heartdis, 
+white=race01, black=race02, japanese=race03, chinese=race04, 
+filipino=race05, korean=race06, asian_or_pacific_islander=race07, 
+mexican=race09, 
+hispanic_latino=race10, other=race11, vietnamese=race12, 
+asian_indian=race13, refused=race14, dont_know=race15, 
+americanindian_or_alaskannative=race08, school_level = vereduc, 
+smoking_harms_health = harmhlth, how_many_people_smoke = acqsmoke, 
+physically_active_for_10min = act10min, 
+days_had_4ormore_drinks_inrow = drinkfiv)
+```
+
+```{r}
+#recode race columns into one column
+racedata1 <- racedata %>% mutate(race = case_when(white == "Yes" ~ "white", 
+black == "Yes" ~ "black", japanese == "Yes" ~ "japanese", 
+chinese == "Yes" ~ "chinese", filipino == "Yes" ~ "filipino", 
+korean == "Yes" ~ "korean", 
+asian_or_pacific_islander == "Yes" ~ "asian_or_pacific_islander", 
+mexican == "Yes" ~ "mexican", hispanic_latino == "Yes" ~ "hispanic_latino", 
+other == "Yes" ~ "other", vietnamese == "Yes" ~ "vietnamese", 
+asian_indian == "Yes" ~ "asian_indian", refused == "Yes" ~ "refused", 
+dont_know == "Yes" ~ "dont know", 
+americanindian_or_alaskannative == "Yes" ~ "americanindian_or_alaskannative"))
+```
+
+```{r}
+#subset race data that is ready to combine with smoker data
+recodedrace_data <- racedata1 %>% select(id, race, income, school_level, wgtinlbs, 
+htinfeet, goodhlth, smoking_harms_health, smokalone, how_many_people_smoke, 
+physically_active_for_10min, 
+days_had_4ormore_drinks_inrow, heart_disease, 
+diabetes)
+```
+
+```{r}
+#subset columns from smoker data
+smokerdata <- smokerclean %>% select(psraid, rightsex, smokstat, howmany, 
+smok6num, smok6uni, smkbrand, smk1age, smkage)
+```
+
+```{r}
+#rename columns
+datasmoker <- smokerdata %>% rename(sex = rightsex, smoking_status = smokstat, 
+cig_brand = smkbrand, cigs_per_day = howmany, 
+how_long_smoking_daily = smok6num, unit_of_time_smoking_daily = smok6uni, 
+age_when_first_smoked = smk1age, age_when_daily_smoking_began = smkage, 
+id = psraid)
+```
+
+```{r}
+#make id variables the same type in both datasets
+
+#checking column types
+#format(datasmoker$id, scientific = F)
+str(datasmoker)
+str(recodedrace_data)
+
+#need to change datasmoker id column to character (right now it's a double)
+#as.numeric(datasmoker$id)
+#as.character(datasmoker$id)
+```
+
+```{r}
+#combine data sets
+#casmokers <- inner_join(recodedrace_data, smoker2, by = c("id"))
+```
+
+```{r}
+#remove missing/NA data values because .......
+```
+
 
 **Subset rows or columns, as needed**
 ```{r}
