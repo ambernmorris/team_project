@@ -1,45 +1,151 @@
-**Milestone #3, due Nov 7**
+---
+title: "Milestone #3"
+output:
+  pdf_document: default
+  html_document: default
+date: 'Ileah Rios & Amber Morris'
+---
+# **Milestone #1**
 
-Make sure to follow:
-**PDF that is professionally prepared for presentation**
+#### 1. Project option selection: 
+We pick the California Smokers' Cohort data set for this project.
 
-**Each part of the milestone is clearly on one page (use \newpage to push to a new page)**
+#### 2. Create git repository / Share a link to your group’s git repository:
+https://github.com/ambernmorris/team_project
 
-**Only the necessary information is outputted (you should suppress, for example, entire data frame outputs)**
+#### 3. What is your team's preferred communication method - email, text, bcourse messaging?
+Text, email, Zoom calls
 
-**Clean dataset with descriptive statistics for relevant data elements**
-**Please turn in a PDF created from an Rmd with the following components**
+#### 4. When will your team be holding meetings? How frequently will you meet? Are there times or days that work well for everyone?
+Once a week to every other week; we are already in contact frequently because we have other classes together and have worked together before. Our schedules vary, but typically Wednesday mornings work best for us to meet.
 
-**Milestone #1**
+#### 5. Discuss future non-academic commitments that might affect members' availability:
+Work, life events, partners, vacations. We communicate clearly when we have conflicts. 
+Discuss meeting tempo: “checking in” at the beginning of meetings versus “just sticking to business”. We like to check-in and then we usually get to work after chatting some.
 
+#### 6. How is your team going to keep track of progress? Who will be taking minutes, creating agendas, and contacting the course facilitators with questions?
+We both come to our meetings prepared with questions and a general idea of what we will be working on together. Amber will be the one usually to contact course instructors. 
+
+#### 7. We encourage you to discuss potential dates and times to meet with a course facilitator during Weeks 3-5. Decide on the best date and time for all.
+We will meet with Lauren on Mondays via private office hour appointment if needed.
+
+#### 8. Determine a point person to submit each assignment for the team.
+Ileah
+
+#### 9. If a conflict arises, plan to solve the issue as soon as possible. This is best done using synchronous (Zoom, Google Hangouts) communication rather than asynchronous (email). If the group is unable to resolve the conflict, seek advice from the instructional team. 
+Yes, will do.
+
+#### 10. Team's preferred communication method:
+Text, email, zoom
+
+#### 11. Team's preferred meeting times and frequency:
+Once a week to every other week; we take other classes together, so we are in contact often and are always willing to meet whenever. 
+
+#### 12. Team's preferred method for tracking progress:
+We plan to have each milestone finished a week ahead of the due date, so we can make changes if we need to ahead of time. 
+
+#### 13. Point person for contacting course facilitators with questions:
+Amber
 \newpage
 
+# **Milestone #2**
 
-**Milestone #2**
+## 1. **Description of dataset**
 
-\newpage
+### What is the data source? (1-2 sentences on where the data is coming from, dates included, etc.)
+The data source is from the California Smokers Cohort (CSC) 2011 through UC San Diego. These data are from a survey designed to investigate factors associated with tobacco quitting behaviors, sponsored/funded by CDPH.
 
-**Milestone #3**
+### **How does the dataset relate to the group problem statement and question?**
+Through these data, CDPH will better understand tobacco use and behaviors among smokers in California and be able to design an implementation strategies in high-risk communities to increase quitting behaviors. As we go through the milestones, the elements we use may change, but we foresee combining each data set and exploring how race, income, and cigarette brand affect heart disease outcomes. Specifically, creating a visualization to explore how these variables interact with each other and making recommendations to CDPH based on that.
+
+## 2. **Import statement**
 ```{r}
+#adding libraries
+
 library(tidyverse)
 library(readr)
 library(readxl)
 library(janitor)
 library(stringr)
-```
 
-```{r}
+#creating a file path for both data sets
 file_path_smoker <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_smoker_data.csv"
 file_path_race <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_outcome_race_data.csv"
 
+#importing full file of both data sets
 smoker_data <- read_csv(file_path_smoker)
 race_data <- read_csv(file_path_race)
+```
+### **Utilize function arguments to control relevant components (i.e. change column types, column names, missing values, etc.)**
+```{r}
+#first data set work below
+#change columns to all lowercase
+clean_smoker_data <- clean_names(smoker_data)
 
+#change column names (the elements we want to use only)
+new_smoker_data <- rename(clean_smoker_data, sex = rightsex, 
+                          smoking_status = smokstat, cig_brand = smkbrand)
+
+#subset the columns we want (elements we want to use only)
+updated_smoker_data <- select(new_smoker_data, c("sex", "smoking_status",
+                        "cig_brand"))
+
+#change the DO NOT READ values to NA
+updated_smoker_data[updated_smoker_data == "(DO NOT READ) Refused"] <- NA
+updated_smoker_data[updated_smoker_data == "(DO NOT READ) Don't know"] <- NA
+
+#change columns to all lowercase
+clean_race_data <- clean_names(race_data)
+
+#change column names (the elements we want to use only)
+new_race_data <- rename(clean_race_data, heart_disease=heartdis, 
+white=race01, black=race02, japanese=race03, chinese=race04, 
+filipino=race05, korean=race06, asian_or_pacific_islander=race07, 
+mexican=race09, 
+hispanic_latino=race10, other=race11, vietnamese=race12, 
+asian_indian=race13, refused=race14, dont_know=race15, 
+americanindian_or_alaskannative=race08)
+
+#subset the columns we want (elements we want to use only)
+updated_race_data <- select(new_race_data, c("heart_disease", "income", "white", 
+"black", "japanese", "chinese", "filipino", "korean", 
+"asian_or_pacific_islander", "americanindian_or_alaskannative", "mexican", 
+"hispanic_latino", "other", "vietnamese", "asian_indian", "refused",
+  "dont_know"))
+
+#change the DO NOT READ values to NA
+updated_race_data[updated_race_data == "(DO NOT READ) Refused"] <- NA
+updated_race_data[updated_race_data == "(DO NOT READ) Don't know"] <- NA
+```
+## 3. **Identify 5+ data elements required for your specified scenario. If <5 elements are required to complete the analysis, please choose additional variables of interest in the data set to explore in this milestone.**
+This milestone is focused on: rightsex (sex), smokstat (smoking status), smkbrand (brand of cigarettes), race (race), income (income), and heartdis (heart disease status).
+
+
+### **Utilize functions or resources in RStudio to determine the types of each data element (i.e. character, numeric, factor)**
+```{r}
+#smoker data set
+str(updated_smoker_data)
+
+#race data set
+str(updated_race_data)
+```
+### **Identify the desired type/format for each variable—will you need to convert any columns to numeric or another type?**
+Both data sets were assessed and it was determined there were not any columns that needed to be converted to another data type at this time.
+
+## 4. **Provide a basic description of the 5+ data elements**
+```{r}
+#first data set
+summary(updated_smoker_data)
+#second data set
+summary(updated_race_data)
+```
+\newpage
+# **Milestone #3**
+```{r}
 raceclean <- clean_names(race_data)
 smokerclean <- clean_names(smoker_data)
 ```
-
-
+## 1. Subset row or columns as needed in race data
 ```{r}
 #subset columns from race dataset
 race <- raceclean %>% select(id, race01, race02, race03, race04, race05, 
@@ -84,7 +190,7 @@ physically_active_for_10min,
 days_had_4ormore_drinks_inrow, heart_disease, 
 diabetes)
 ```
-
+## 2. Subset row or columns as needed in smoker data
 ```{r}
 #subset columns from smoker data
 smokerdata <- smokerclean %>% select(psraid, rightsex, smokstat, howmany, 
@@ -92,90 +198,49 @@ smok6num, smok6uni, smkbrand, smk1age, smkage)
 ```
 
 ```{r}
-#rename columns
+#rename columns in smoker data
 datasmoker <- smokerdata %>% rename(sex = rightsex, smoking_status = smokstat, 
 cig_brand = smkbrand, cigs_per_day = howmany, 
 how_long_smoking_daily = smok6num, unit_of_time_smoking_daily = smok6uni, 
 age_when_first_smoked = smk1age, age_when_daily_smoking_began = smkage, 
 id = psraid)
 ```
+## 3. Combine both data sets
+```{r}
+#make id variables the same type in both datasets to combine datasets by id
+newracedata <- cbind(recodedrace_data, i_d = datasmoker$id)
+newracedata1 <- newracedata %>% select(i_d, race, income, school_level, wgtinlbs, 
+htinfeet, goodhlth, smoking_harms_health, smokalone, how_many_people_smoke, 
+physically_active_for_10min, 
+days_had_4ormore_drinks_inrow, heart_disease, 
+diabetes) %>% rename(id = i_d)
+```
 
 ```{r}
-#make id variables the same type in both datasets
-
 #checking column types
-#format(datasmoker$id, scientific = F)
-str(datasmoker)
-str(recodedrace_data)
-
-#need to change datasmoker id column to character (right now it's a double)
-#as.numeric(datasmoker$id)
-#as.character(datasmoker$id)
+typeof(datasmoker$id)
+typeof(newracedata1$id)
 ```
 
 ```{r}
-#combine data sets
-#casmokers <- inner_join(recodedrace_data, smoker2, by = c("id"))
+#combine datasets by ID
+combineddata <- inner_join(newracedata1, datasmoker, by = c("id"))
 ```
 
 ```{r}
-#remove missing/NA data values because .......
+#change DO NOT READ values to NA data values because .......
+combineddata[combineddata == "(DO NOT READ) Refused"] <- NA
+combineddata[combineddata == "(DO NOT READ) Don't know"] <- NA
 ```
-
-
-**Subset rows or columns, as needed**
+## 4. Create and clean two new variables needed to analysis
 ```{r}
 
 ```
-
-**Create new variables needed for analysis (minimum 2)**
-**New variables should be created based on existing columns; for example**
+## 5. Data dictionary for final dataset
 ```{r}
 
 ```
-
-**Calculating a rate**
+## 6. Table with descriptive statistics
 ```{r}
 
 ```
-
-**Combining character strings**
-```{r}
-
-```
-
-**If no new values are needed for final tables/graphs, please create 2 new variables anyway**
-```{r}
-
-```
-
-**Clean variables needed for analysis (minimum 2)**
-Examples
-Recode invalid values
-Handle missing fields
-Recode categories
-```{r}
-
-```
-
-**If not needed for final analysis, please create at least 2 new variables anyway**
-```{r}
-
-```
-
-**Data dictionary based on clean dataset (minimum 4 data elements), including:**
-Variable name
-Data type
-Description
-One or more tables with descriptive statistics for 4 data element
-```{r}
-
-```
-
-**PDF that is professionally prepared for presentation**
-
-**Each part of the milestone is clearly on one page (use \newpage to push to a new page)**
-
-**Only the necessary information is outputted (you should suppress, for example, entire data frame outputs)**
-
-**Use of headers and sub headers to create an organized document**
