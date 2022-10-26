@@ -253,31 +253,37 @@ final_variables_data <- new_variables_data_2 %>%
 
 ```
 ## 5. Data dictionary for final dataset
-```{r}
 
-#minimum of 4 variables
+minimum of 4 variables
 
-#variable 1
-#Variable name: cig_brand
-#Data type: Character
-#Data description: This variable contains the name of the cigarette brand the participant reported smoking.
+variable 1
+Variable name: cig_brand
+Data type: Character
+Data description: This variable contains the name of the cigarette brand the participant reported smoking.
 
-#variable 2
-#Variable name: age_when_daily_smoking_began
-#Data type: Character
-#Data description: This variable contains the age of the participant when they began to smoke cigarettes on a regular basis. 
-#variable 3
-#Variable name: age_when_first_smoked
-#Data type: Character
-#Data description: This variable contains the age when the participant first smoked their first whole cigarette.
+Variable 2
+Variable name: age_when_daily_smoking_began
+Data type: Character
+Data description: This variable contains the age of the participant when they began to smoke cigarettes on a regular basis. 
 
-#variable 4
-#Variable name: bmi
-#Data type: Double
-#Data description: This variable contains the participant's BMI, calculated as kg/m^2. 
+variable 3
+Variable name: age_when_first_smoked
+Data type: Character
+Data description: This variable contains the age when the participant first smoked their first whole cigarette.
 
-```
+variable 4
+Variable name: bmi
+Data type: Double
+Data description: This variable contains the participant's BMI, calculated as kg/m^2.
+
+
 ## 6. Table with descriptive statistics
 ```{r}
+
+library(kableExtra)
+
+#internal note to Ileah: for the table, maybe we can do mean for bmi and pack_years, sd for pack_years, and count for heart_disease
+#i know you said you will do this one, but happy to jump in and finish this if you want/need. just let me know!
+#ps, you can delete these comments once you read this.
 
 ```
