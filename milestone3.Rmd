@@ -236,10 +236,19 @@ combineddata[combineddata == "(DO NOT READ) Don't know"] <- NA
 ```{r}
 
 #variable 1, bmi
-new_variables_data <- combineddata %>%
+new_variables_data_1 <- combineddata %>%
   mutate(bmi = (wgtinlbs * 0.45359237) / (htinfeet * 0.304)^2)
 
-#variable 2, pack years
+#first need to make packs per day variable to create packs per year variable
+#packs per day is cigs_per_day was divided by 20 because there are 20 cigarettes in 1 pack
+new_variables_data_2 <- new_variables_data_1 %>%
+  mutate(cigs_per_day = as.numeric(cigs_per_day),
+         packs_per_day = (cigs_per_day / 20))
+
+#now packs per year calculation
+final_variables_data <- new_variables_data_2 %>%
+  mutate(how_long_smoking_daily = as.numeric(how_long_smoking_daily),
+         pack_years = (packs_per_day) * (how_long_smoking_daily))
 
 ```
 ## 5. Data dictionary for final dataset
