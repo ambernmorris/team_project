@@ -235,6 +235,12 @@ combineddata[combineddata == "(DO NOT READ) Don't know"] <- NA
 ## 4. Create and clean two new variables needed to analysis
 ```{r}
 
+#variable 1, bmi
+new_variables_data <- combineddata %>%
+  mutate(bmi = (wgtinlbs * 0.45359237) / (htinfeet * 0.304)^2)
+
+#variable 2, pack years
+
 ```
 ## 5. Data dictionary for final dataset
 ```{r}
