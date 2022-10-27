@@ -122,7 +122,7 @@ This milestone is focused on: rightsex (sex), smokstat (smoking status), smkbran
 
 
 ### **Utilize functions or resources in RStudio to determine the types of each data element (i.e. character, numeric, factor)**
-```{r}
+```{r,eval=FALSE}
 #smoker data set
 str(updated_smoker_data)
 
@@ -133,7 +133,7 @@ str(updated_race_data)
 Both data sets were assessed and it was determined there were not any columns that needed to be converted to another data type at this time.
 
 ## 4. **Provide a basic description of the 5+ data elements**
-```{r}
+```{r,eval=FALSE}
 #first data set
 summary(updated_smoker_data)
 #second data set
@@ -254,36 +254,59 @@ final_variables_data <- new_variables_data_2 %>%
 ```
 ## 5. Data dictionary for final dataset
 
-minimum of 4 variables
+* **Variable 1**
+  + *Name:* cig_brand 
+  + *Data type:* Character 
+  + *Description:* This variable contains the name of the cigarette brand the participant reported smoking 
 
-variable 1
-Variable name: cig_brand
-Data type: Character
-Data description: This variable contains the name of the cigarette brand the participant reported smoking.
+* **Variable 2**
+  + *Name:* age_when_daily_smoking_began 
+  + *Data type:* Character 
+  + *Description:* This variable contains the age of the participant when they began to smoke cigarettes on a regular basis 
 
-Variable 2
-Variable name: age_when_daily_smoking_began
-Data type: Character
-Data description: This variable contains the age of the participant when they began to smoke cigarettes on a regular basis. 
+* **Variable 3**
+  + *Name:* age_when_first_smoked 
+  + *Data type:* Character 
+  + *Description:* This variable contains the age when the participant first smoked their first whole cigarette  
 
-variable 3
-Variable name: age_when_first_smoked
-Data type: Character
-Data description: This variable contains the age when the participant first smoked their first whole cigarette.
-
-variable 4
-Variable name: bmi
-Data type: Double
-Data description: This variable contains the participant's BMI, calculated as kg/m^2.
-
+* **Variable 4**
+  + *Name:* bmi 
+  + *Data type:* Double 
+  + *Description:* This variable contains the participant's BMI, calculated as kg/m^2
 
 ## 6. Table with descriptive statistics
-```{r}
-
-library(kableExtra)
-
-#internal note to Ileah: for the table, maybe we can do mean for bmi and pack_years, sd for pack_years, and count for heart_disease
-#i know you said you will do this one, but happy to jump in and finish this if you want/need. just let me know!
-#ps, you can delete these comments once you read this.
-
+```{r,eval=FALSE}
+#BMI
+summary(final_variables_data$bmi, na.rm = T)
+sd(final_variables_data$bmi, na.rm = T)
 ```
+
+```{r,eval=FALSE}
+#Pack Years
+summary(final_variables_data$pack_years, na.rm = T)
+sd(final_variables_data$pack_years, na.rm = T)
+```
+
+```{r,eval=FALSE}
+#Packs Per Day
+summary(final_variables_data$packs_per_day, na.rm = T)
+sd(final_variables_data$packs_per_day, na.rm = T)
+```
+
+```{r,eval=FALSE}
+#Cigs Per Day
+summary(final_variables_data$cigs_per_day, na.rm = T)
+sd(final_variables_data$cigs_per_day, na.rm = T)
+```
+
+```{r}
+library(kableExtra)
+df_ofdescriptive_stats <- data.frame("Variable" = 
+c("Pack Years", "Cigs Per Day", "BMI", "Packs Per Day"), "Mean" = 
+c(21.68, 13.89, 33.38, 0.69), "Standard Deviation" = 
+c(18.19, 9.30, 10.67, 0.47), "Range" = c(119.9, 59, 161.29, 2.95))
+
+kable(df_ofdescriptive_stats, booktabs = T, longtable=T, col.names = 
+        c("Variable", "Mean", "SD", "Range"), align= 'lcccc',
+caption= "Descriptive Statistics of Four Variables from 2011 California 
+Smokers Cohort")
