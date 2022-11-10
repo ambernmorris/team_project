@@ -1,5 +1,5 @@
 # team_project
-# Project is through UC Berkeley MPH program, class 251: R for Public Health.
+# This repository and project is through the UC Berkeley MPH program, class 251: R for Public Health.
 
 # The data source is from the California Smokers Cohort (CSC) 2011 through UC San Diego - https://library.ucsd.edu/dc/object/bb6282371f. 
 # These data are from a survey designed to investigate factors associated with tobacco quitting behaviors, sponsored/funded by CDPH.
