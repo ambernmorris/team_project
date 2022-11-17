@@ -303,3 +303,34 @@ Smokers Cohort")
 \newpage
 
 **Milestone 4**
+
+For each visual, include:
+Code used to generate visual
+Legend (if necessary)
+1-2 sentence interpretation 
+
+
+One print-quality plot or chart that shows the average number of pack-years and the disease outcomes
+Using variables: pack_years, heart_disease, diabetes
+```{r}
+
+data_visual_one <- final_variables_data %>%
+  select(c("pack_years", "heart_disease", "diabetes"))
+
+#Box plot of pack years by heart disease
+visual_one <- boxplot(pack_years~heart_disease, data = data_visual_one, 
+main="Pack-Years and Disease Outcome", 
+xlab= "Heart Disease Present During Study", ylab="Cigarette Pack Years")
+  
+
+print(visual_one)
+
+```
+Based on this visual, a participant in this study with heart disease had a wider range of cigarette pack years and higher median number of pack years when compared to another participant in the same study without heart disease.
+
+One print-quality plot or chart that compares race and income on disease status
+Using variables: race, income, heart_disease, diabetes
+```{r}
+
+```
+
