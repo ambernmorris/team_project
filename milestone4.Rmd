@@ -330,6 +330,9 @@ xlab= "Heart Disease Present During Study", ylab="Cigarette Pack Years")
 
 print(visual_one)
 
+#this visual will need to be corrected once pack year calculation is corrected
+#note from GSI on graded milestone 3 mentioned units, but I checked units and almost all of them (except 1) is already years, so not sure what time unit needs to be altered
+
 ```
 Based on this visual, a participant in this study with heart disease had a wider range of cigarette pack years and higher median number of pack years when compared to another participant in the same study without heart disease.
 
