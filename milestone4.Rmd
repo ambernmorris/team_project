@@ -1,74 +1,62 @@
 ---
+title: "Milestone #4"
 output:
   pdf_document: default
   html_document: default
+date: 'Ileah Rios & Amber Morris'
 ---
-Milestone #4 - complete by FRIDAY NOV 18
+# **Milestone #1**
 
+#### 1. Project option selection: 
+We pick the California Smokers' Cohort data set for this project.
 
-**Milestone #1**
-1. Project option selection: We pick the California Smokers’ Cohort data set for this project.
+#### 2. Create git repository / Share a link to your group’s git repository:
+https://github.com/ambernmorris/team_project
 
-2. Create git repository / Share a link to your group’s git repository: https://github.com/
-ambernmorris/team_project
-
-3. What is your team’s preferred communication method - email, text, bcourse messaging?
+#### 3. What is your team's preferred communication method - email, text, bcourse messaging?
 Text, email, Zoom calls
 
-4. When will your team be holding meetings? How frequently will you meet? Are there times
-or days that work well for everyone? Once a week to every other week; we are already in contact
-frequently because we have other classes together and have worked together before. Our schedules vary, but
-typically Wednesday mornings work best for us to meet.
+#### 4. When will your team be holding meetings? How frequently will you meet? Are there times or days that work well for everyone?
+Once a week to every other week; we are already in contact frequently because we have other classes together and have worked together before. Our schedules vary, but typically Wednesday mornings work best for us to meet.
 
-5. Discuss future non-academic commitments that might affect members’ availability: Work,
-life events, partners, vacations. We communicate clearly when we have conflicts. Discuss meeting tempo:
-“checking in” at the beginning of meetings versus “just sticking to business”. We like to check-in and then
-we usually get to work after chatting some.
+#### 5. Discuss future non-academic commitments that might affect members' availability:
+Work, life events, partners, vacations. We communicate clearly when we have conflicts. 
+Discuss meeting tempo: “checking in” at the beginning of meetings versus “just sticking to business”. We like to check-in and then we usually get to work after chatting some.
 
-6. How is your team going to keep track of progress? Who will be taking minutes, creating
-agendas, and contacting the course facilitators with questions? We both come to our meetings
-prepared with questions and a general idea of what we will be working on together. Amber will be the one
-usually to contact course instructors.
+#### 6. How is your team going to keep track of progress? Who will be taking minutes, creating agendas, and contacting the course facilitators with questions?
+We both come to our meetings prepared with questions and a general idea of what we will be working on together. Amber will be the one usually to contact course instructors. 
 
-7. We encourage you to discuss potential dates and times to meet with a course facilitator
-during Weeks 3-5. Decide on the best date and time for all. We will meet with Lauren on Mondays
-via private office hour appointment if needed.
+#### 7. We encourage you to discuss potential dates and times to meet with a course facilitator during Weeks 3-5. Decide on the best date and time for all.
+We will meet with Lauren on Mondays via private office hour appointment if needed.
 
-8. Determine a point person to submit each assignment for the team. Ileah
+#### 8. Determine a point person to submit each assignment for the team.
+Ileah
 
-9. If a conflict arises, plan to solve the issue as soon as possible. This is best done using
-synchronous (Zoom, Google Hangouts) communication rather than asynchronous (email). If
-the group is unable to resolve the conflict, seek advice from the instructional team. Yes, will
-do.
+#### 9. If a conflict arises, plan to solve the issue as soon as possible. This is best done using synchronous (Zoom, Google Hangouts) communication rather than asynchronous (email). If the group is unable to resolve the conflict, seek advice from the instructional team. 
+Yes, will do.
 
-10. Team’s preferred communication method: Text, email, zoom
+#### 10. Team's preferred communication method:
+Text, email, zoom
 
+#### 11. Team's preferred meeting times and frequency:
+Once a week to every other week; we take other classes together, so we are in contact often and are always willing to meet whenever. 
 
-11. Team’s preferred meeting times and frequency: Once a week to every other week; we take other
-classes together, so we are in contact often and are always willing to meet whenever.
+#### 12. Team's preferred method for tracking progress:
+We plan to have each milestone finished a week ahead of the due date, so we can make changes if we need to ahead of time. 
 
-12. Team’s preferred method for tracking progress: We plan to have each milestone finished a week
-ahead of the due date, so we can make changes if we need to ahead of time.
-
-13. Point person for contacting course facilitators with questions: Amber
-
+#### 13. Point person for contacting course facilitators with questions:
+Amber
 \newpage
 
-**Milestone 2**
+# **Milestone #2**
 
-What is the data source? (1-2 sentences on where the data is coming from, dates included,
-etc.)
-The data source is from the California Smokers Cohort (CSC) 2011 through UC San Diego. These data are
-from a survey designed to investigate factors associated with tobacco quitting behaviors, sponsored/funded
-by CDPH.
+## 1. **Description of dataset**
 
-How does the dataset relate to the group problem statement and question?
-Through these data, CDPH will better understand tobacco use and behaviors among smokers in California
-and be able to design an implementation strategies in high-risk communities to increase quitting behaviors.
-As we go through the milestones, the elements we use may change, but we foresee combining each data set
-and exploring how race, income, and cigarette brand affect heart disease outcomes. Specifically, creating a
-visualization to explore how these variables interact with each other and making recommendations to CDPH
-based on that.
+### What is the data source? (1-2 sentences on where the data is coming from, dates included, etc.)
+The data source is from the California Smokers Cohort (CSC) 2011 through UC San Diego. These data are from a survey designed to investigate factors associated with tobacco quitting behaviors, sponsored/funded by CDPH.
+
+### **How does the dataset relate to the group problem statement and question?**
+Through these data, CDPH will better understand tobacco use and behaviors among smokers in California and be able to design an implementation strategies in high-risk communities to increase quitting behaviors. As we go through the milestones, the elements we use may change, but we foresee combining each data set and exploring how race, income, and cigarette brand affect heart disease outcomes. Specifically, creating a visualization to explore how these variables interact with each other and making recommendations to CDPH based on that.
 
 ## 2. **Import statement**
 ```{r}
@@ -90,7 +78,6 @@ race_data <- read_csv(file_path_race)
 ```
 ### **Utilize function arguments to control relevant components (i.e. change column types, column names, missing values, etc.)**
 ```{r}
-#first data set work below
 #change columns to all lowercase
 clean_smoker_data <- clean_names(smoker_data)
 
@@ -134,7 +121,7 @@ This milestone is focused on: rightsex (sex), smokstat (smoking status), smkbran
 
 
 ### **Utilize functions or resources in RStudio to determine the types of each data element (i.e. character, numeric, factor)**
-```{r}
+```{r, eval=FALSE}
 #smoker data set
 str(updated_smoker_data)
 
@@ -145,15 +132,14 @@ str(updated_race_data)
 Both data sets were assessed and it was determined there were not any columns that needed to be converted to another data type at this time.
 
 ## 4. **Provide a basic description of the 5+ data elements**
-```{r}
+```{r, eval=FALSE}
 #first data set
 summary(updated_smoker_data)
 #second data set
 summary(updated_race_data)
 ```
 \newpage
-
-**Milestone #3**
+# **Milestone #3**
 ```{r}
 raceclean <- clean_names(race_data)
 smokerclean <- clean_names(smoker_data)
@@ -247,7 +233,6 @@ combineddata[combineddata == "(DO NOT READ) Don't know"] <- NA
 ```
 ## 4. Create and clean two new variables needed to analysis
 ```{r}
-
 #variable 1, bmi
 new_variables_data_1 <- combineddata %>%
   mutate(bmi = (wgtinlbs * 0.45359237) / (htinfeet * 0.304)^2)
@@ -262,78 +247,78 @@ new_variables_data_2 <- new_variables_data_1 %>%
          packs_per_day = (cigs_per_day / 20))
 
 #variable 3
-#recoding values with days unit of time to years
-new_variables_data_2[35, 18] = 0.33
-new_variables_data_2[212, 18] = 0.08
-new_variables_data_2[717, 18] = 0.07
-new_variables_data_2[742, 18] = 0.01
+new_variables_data_2 <- new_variables_data_2 %>% mutate(how_long_smoking_daily = as.numeric(how_long_smoking_daily))
 
-#recoding values with months unit of time years
-new_variables_data_2[62, 18] = 1.5
-new_variables_data_2[305, 18] = 0.25
-new_variables_data_2[737, 18] = 0.67
-new_variables_data_2[779, 18] = 0.83
-new_variables_data_2[938, 18] = 0.5
+recoding_variables <- new_variables_data_2 %>% mutate(how_long_smoking_daily = case_when(unit_of_time_smoking_daily == "Days" ~ how_long_smoking_daily/365, unit_of_time_smoking_daily == "Months" ~ how_long_smoking_daily/12, unit_of_time_smoking_daily == "Years" ~ round(how_long_smoking_daily, 2)))
 
 final_variables_data <- new_variables_data_2 %>%
   mutate(how_long_smoking_daily = as.numeric(how_long_smoking_daily),
          pack_years = (packs_per_day) * (how_long_smoking_daily))
 ```
-
 ## 5. Data dictionary for final dataset
 
-minimum of 4 variables
+* **Variable 1**
+  + *Name:* cig_brand 
+  + *Data type:* Character 
+  + *Description:* This variable contains the name of the cigarette brand the participant reported smoking 
 
-**variable 1**
-Variable name: cig_brand
-Data type: Character
-Data description: This variable contains the name of the cigarette brand the participant reported smoking.
+* **Variable 2**
+  + *Name:* age_when_daily_smoking_began 
+  + *Data type:* Character 
+  + *Description:* This variable contains the age of the participant when they began to smoke cigarettes on a regular basis 
 
-**Variable 2**
-Variable name: age_when_daily_smoking_began
-Data type: Character
-Data description: This variable contains the age of the participant when they began to smoke cigarettes on a regular basis. 
+* **Variable 3**
+  + *Name:* age_when_first_smoked 
+  + *Data type:* Character 
+  + *Description:* This variable contains the age when the participant first smoked their first whole cigarette  
 
-**variable 3**
-Variable name: age_when_first_smoked
-Data type: Character
-Data description: This variable contains the age when the participant first smoked their first whole cigarette.
-
-**variable 4**
-Variable name: bmi
-Data type: Double
-Data description: This variable contains the participant's BMI, calculated as kg/m^2.
-
+* **Variable 4**
+  + *Name:* bmi 
+  + *Data type:* Double 
+  + *Description:* This variable contains the participant's BMI, calculated as kg/m^2
 
 ## 6. Table with descriptive statistics
+```{r,eval=FALSE}
+#BMI
+summary(final_variables_data$bmi, na.rm = T)
+sd(final_variables_data$bmi, na.rm = T)
+```
+
+```{r,eval=FALSE}
+#Pack Years
+summary(final_variables_data$pack_years, na.rm = T)
+sd(final_variables_data$pack_years, na.rm = T)
+```
+
+```{r,eval=FALSE}
+#Packs Per Day
+summary(final_variables_data$packs_per_day, na.rm = T)
+sd(final_variables_data$packs_per_day, na.rm = T)
+```
+
+```{r,eval=FALSE}
+#Cigs Per Day
+summary(final_variables_data$cigs_per_day, na.rm = T)
+sd(final_variables_data$cigs_per_day, na.rm = T)
+```
+
 ```{r}
-
 library(kableExtra)
-
 df_ofdescriptive_stats <- data.frame("Variable" = 
 c("Pack Years", "Cigs Per Day", "BMI", "Packs Per Day"), "Mean" = 
 c(21.68, 13.89, 33.38, 0.69), "Standard Deviation" = 
 c(18.19, 9.30, 10.67, 0.47), "Range" = c(119.9, 59, 161.29, 2.95))
+
 kable(df_ofdescriptive_stats, booktabs = T, longtable=T, col.names = 
         c("Variable", "Mean", "SD", "Range"), align= 'lcccc',
 caption= "Descriptive Statistics of Four Variables from 2011 California 
 Smokers Cohort")
-
 ```
 \newpage
+# **Milestone #4**
 
-**Milestone 4**
-
-For each visual, include:
-Code used to generate visual
-Legend (if necessary)
-1-2 sentence interpretation 
-
-
-One print-quality plot or chart that shows the average number of pack-years and the disease outcomes
-Using variables: pack_years, heart_disease, diabetes
+## 1. One print-quality plot or chart that compares average number of pack-years on disease outcome.
 ```{r}
-
 data_visual_one <- final_variables_data %>%
   select(c("pack_years", "heart_disease", "diabetes"))
 
@@ -348,11 +333,48 @@ print(visual_one)
 #this visual will need to be corrected once pack year calculation is corrected, see question 4 in milestone 3 for details.
 
 ```
-Based on this visual, a participant in this study with heart disease had a wider range of cigarette pack years and higher median number of pack years when compared to another participant in the same study without heart disease.
+Interpretation: Based on this visual, a participant in this study with heart disease had a wider range of cigarette pack years and higher median number of pack years when compared to another participant in the same study without heart disease.
 
-One print-quality plot or chart that compares race and income on disease status
-Using variables: race, income, heart_disease, diabetes
+## 2. One print-quality plot or chart that compares smoking status, race, and income
+```{r}
+visualization2 <- final_variables_data %>% select(id, race, income, 
+heart_disease, diabetes, sex, smoking_status, age_when_first_smoked)
+
+visualization2 <- visualization2 %>% mutate(income = case_when(income == "$20,000 or less" ~ 1, 
+income == "$20,001 to $30,000" ~ 2, income == "$30,001 to $50,000" ~ 3, 
+income == "$50,001 to $75,000" ~ 4, income == "$75,001 to $100,000" ~ 5, 
+income == "$100,001 to $150,000 or" ~ 6, income == "Over $150,000?" ~ 7)) %>% 
+mutate(income = as.numeric(unlist(income)))
+
+library(ggplot2)
+ggplot(visualization2, aes(x = race, y = income)) + 
+geom_count(aes(color = ..prop.., size = ..prop.., group = 1)) + 
+guides(color = 'legend') + theme_classic() + labs(x = "Race", 
+y = "Income", 
+title = "Proportion of Daily Smokers Versus Non-Daily Smokers by Race & Income", 
+subtitle = "2011 California Smokers Cohort",
+caption = "Note: y-axis values were recoded to 1 = $20,000 or less, 2: = $20,001 to $30,000, 3 = $30,001 
+to $50,000, 4 = $50,001 to $75,000, 5 = $75,001 to $100,000, 6 = $100,001 to 
+$150,000, 7 = Over $150,000") + facet_wrap(~smoking_status) + 
+theme(axis.text.x = element_text(angle = 90)) + scale_size_area() + theme(
+plot.title = element_text(color = "black", size = 11, face = "bold", 
+hjust = 0.5), plot.caption = element_text(size = 7, hjust = 1, 
+color = "blue"), plot.subtitle = element_text(size = 9, color = "blue", face = "italic", 
+hjust = 0.5)) + theme(legend.position = "right")
+```
+
+Interpretation: Based on the graph above the largest proportion of current daily smokers are white and make $20,000 dollars or less.
+
+## 3. One print-quality plot or chart that compares heart disease, race, and income
 ```{r}
 
 ```
+
+
+
+
+
+
+
+
 
