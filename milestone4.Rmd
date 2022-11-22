@@ -252,7 +252,9 @@ combineddata[combineddata == "(DO NOT READ) Don't know"] <- NA
 new_variables_data_1 <- combineddata %>%
   mutate(bmi = (wgtinlbs * 0.45359237) / (htinfeet * 0.304)^2)
 
-#first need to make packs per day variable to create packs per year variable
+#identified 9 rows where unit is wrong, tried if_else, case_when, and repalce() and none of those worked. so pack years calculation is still off by 9 observations.
+
+#make packs per day variable to create packs per year variable
 #packs per day is cigs_per_day was divided by 20 because there are 20 cigarettes in 1 pack
 #variable 2
 new_variables_data_2 <- new_variables_data_1 %>%
@@ -330,8 +332,7 @@ xlab= "Heart Disease Present During Study", ylab="Cigarette Pack Years")
 
 print(visual_one)
 
-#this visual will need to be corrected once pack year calculation is corrected
-#note from GSI on graded milestone 3 mentioned units, but I checked units and almost all of them (except 1) is already years, so not sure what time unit needs to be altered
+#this visual will need to be corrected once pack year calculation is corrected, see question 4 in milestone 3 for details.
 
 ```
 Based on this visual, a participant in this study with heart disease had a wider range of cigarette pack years and higher median number of pack years when compared to another participant in the same study without heart disease.
