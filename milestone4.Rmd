@@ -261,12 +261,25 @@ new_variables_data_2 <- new_variables_data_1 %>%
   mutate(cigs_per_day = as.numeric(cigs_per_day),
          packs_per_day = (cigs_per_day / 20))
 
-#variable 3, pack years calculation
+#variable 3
+#recoding values with days unit of time to years
+new_variables_data_2[35, 18] = 0.33
+new_variables_data_2[212, 18] = 0.08
+new_variables_data_2[717, 18] = 0.07
+new_variables_data_2[742, 18] = 0.01
+
+#recoding values with months unit of time years
+new_variables_data_2[62, 18] = 1.5
+new_variables_data_2[305, 18] = 0.25
+new_variables_data_2[737, 18] = 0.67
+new_variables_data_2[779, 18] = 0.83
+new_variables_data_2[938, 18] = 0.5
+
 final_variables_data <- new_variables_data_2 %>%
   mutate(how_long_smoking_daily = as.numeric(how_long_smoking_daily),
          pack_years = (packs_per_day) * (how_long_smoking_daily))
-
 ```
+
 ## 5. Data dictionary for final dataset
 
 minimum of 4 variables
