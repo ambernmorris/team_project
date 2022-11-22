@@ -252,7 +252,7 @@ combineddata[combineddata == "(DO NOT READ) Don't know"] <- NA
 new_variables_data_1 <- combineddata %>%
   mutate(bmi = (wgtinlbs * 0.45359237) / (htinfeet * 0.304)^2)
 
-#identified 9 rows where unit is wrong, tried if_else, case_when, and repalce() and none of those worked. so pack years calculation is still off by 9 observations.
+#please refer to google drive notes "pack-years unit conversion notes" to determine how to go forward in fixing the conversion. pack-years calculation below is not correct which affects visualization #1.
 
 #make packs per day variable to create packs per year variable
 #packs per day is cigs_per_day was divided by 20 because there are 20 cigarettes in 1 pack
