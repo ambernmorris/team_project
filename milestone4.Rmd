@@ -376,7 +376,7 @@ color = "blue"), plot.subtitle = element_text(size = 9, color = "blue", face = "
 hjust = 0.5)) + theme(legend.position = "right")
 ```
 
-Figure 3. Based on the graph above the largest proportion of current daily smokers are white and make $20,000 dollars or less.
+Figure 3. Based on this graph, the largest proportion of current daily smokers in this study are white and earn $20,000 dollars or less on an annual basis.
 
 ## 3. One print-quality plot or chart that compares heart disease, race, and income
 ```{r}
