@@ -252,6 +252,16 @@ recoding_variables <- new_variables_data_2 %>% mutate(how_long_smoking_daily = c
 final_variables_data <- recoding_variables %>%
   mutate(how_long_smoking_daily = as.numeric(how_long_smoking_daily),
          pack_years = round((packs_per_day) * (how_long_smoking_daily), 2))
+
+median_pack_years <- median(final_variables_data$pack_years, na.rm=T)
+print(median_pack_years)
+
+mean_pack_years <- mean(final_variables_data$pack_years, na.rm=T)
+print(mean_pack_years)
+
+sd_pack_years <- sd(final_variables_data$pack_years, na.rm=T)
+print(sd_pack_years)
+
 ```
 ## 5. Data dictionary for final dataset
 
