@@ -237,8 +237,6 @@ combineddata[combineddata == "(DO NOT READ) Don't know"] <- NA
 new_variables_data_1 <- combineddata %>%
   mutate(bmi = (wgtinlbs * 0.45359237) / (htinfeet * 0.304)^2)
 
-#please refer to google drive notes "pack-years unit conversion notes" to determine how to go forward in fixing the conversion. pack-years calculation below is not correct which affects visualization #1.
-
 #make packs per day variable to create packs per year variable
 #packs per day is cigs_per_day was divided by 20 because there are 20 cigarettes in 1 pack
 #variable 2
@@ -251,9 +249,9 @@ new_variables_data_2 <- new_variables_data_2 %>% mutate(how_long_smoking_daily =
 
 recoding_variables <- new_variables_data_2 %>% mutate(how_long_smoking_daily = case_when(unit_of_time_smoking_daily == "Days" ~ how_long_smoking_daily/365, unit_of_time_smoking_daily == "Months" ~ how_long_smoking_daily/12, unit_of_time_smoking_daily == "Years" ~ round(how_long_smoking_daily, 2)))
 
-final_variables_data <- new_variables_data_2 %>%
+final_variables_data <- recoding_variables %>%
   mutate(how_long_smoking_daily = as.numeric(how_long_smoking_daily),
-         pack_years = (packs_per_day) * (how_long_smoking_daily))
+         pack_years = round((packs_per_day) * (how_long_smoking_daily), 2))
 ```
 ## 5. Data dictionary for final dataset
 
@@ -323,17 +321,22 @@ data_visual_one <- final_variables_data %>%
   select(c("pack_years", "heart_disease", "diabetes"))
 
 #Box plot of pack years by heart disease
-visual_one <- boxplot(pack_years~heart_disease, data = data_visual_one, 
-main="Pack-Years and Disease Outcome", 
-xlab= "Heart Disease Present During Study", ylab="Cigarette Pack Years")
+boxplot_one <- boxplot(pack_years~heart_disease, data = data_visual_one, 
+main="Figure 1: Pack-Years and Heart Disease", 
+xlab= "Heart Disease Reported During Study", ylab="Cigarette Pack Years")
   
+#Box plot of pack years by diabetes
+boxplot_two <- boxplot(pack_years~diabetes, data = data_visual_one, 
+main="Figure 2: Pack-Years and Diabetes", 
+xlab= "Diabetes Reported During Study", ylab="Cigarette Pack Years")
 
-print(visual_one)
-
-#this visual will need to be corrected once pack year calculation is corrected, see question 4 in milestone 3 for details.
+print(boxplot_one)
+print(boxplot_two)
 
 ```
-Interpretation: Based on this visual, a participant in this study with heart disease had a wider range of cigarette pack years and higher median number of pack years when compared to another participant in the same study without heart disease.
+Figure 1. Based on this plot, a participant in this study who reported having Heart Disease, on average, had a wider range of cigarette pack years and higher median number of pack years when compared to another participant in the same study without heart disease.
+
+Figure 2. Based on this plot, a participant in this study who reported having Diabetes, on average, had a wider range of cigarette pack years and higher median number of pack years when compared to another participant in the same study without Diabetes.
 
 ## 2. One print-quality plot or chart that compares smoking status, race, and income
 ```{r}
@@ -363,7 +366,7 @@ color = "blue"), plot.subtitle = element_text(size = 9, color = "blue", face = "
 hjust = 0.5)) + theme(legend.position = "right")
 ```
 
-Interpretation: Based on the graph above the largest proportion of current daily smokers are white and make $20,000 dollars or less.
+Figure 3. Based on the graph above the largest proportion of current daily smokers are white and make $20,000 dollars or less.
 
 ## 3. One print-quality plot or chart that compares heart disease, race, and income
 ```{r}
