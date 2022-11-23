@@ -314,8 +314,8 @@ sd(final_variables_data$cigs_per_day, na.rm = T)
 library(kableExtra)
 df_ofdescriptive_stats <- data.frame("Variable" = 
 c("Pack Years", "Cigs Per Day", "BMI", "Packs Per Day"), "Mean" = 
-c(21.68, 13.89, 33.38, 0.69), "Standard Deviation" = 
-c(18.19, 9.30, 10.67, 0.47), "Range" = c(119.9, 59, 161.29, 2.95))
+c(21.46, 13.89, 33.38, 0.69), "Standard Deviation" = 
+c(17.94, 9.30, 10.67, 0.47), "Range" = c(119.9, 59, 161.29, 2.95))
 
 kable(df_ofdescriptive_stats, booktabs = T, longtable=T, col.names = 
         c("Variable", "Mean", "SD", "Range"), align= 'lcccc',
