@@ -1,0 +1,250 @@
+---
+title: 'Milestone #5'
+output:
+  pdf_document: default
+  html_document: default
+date: "Amber Morris & Ileah Rios"
+---
+
+# Problem Statement
+
+The California Department of Public Health (CDPH) is interested in investigating tobacco use and behaviors among smokers in California to better design and implement strategies in high-risk communities to increase quitting behaviors. Specifically, this report explores how race, income, and pack-years affect heart disease and diabetes outcomes among smokers in California. 
+
+# Methods
+
+The data source is from the California Smokers Cohort (CSC) 2011 through UC San Diego.
+These data are from a survey designed to investigate factors associated with tobacco quitting behaviors, sponsored/funded by CDPH.
+
+To clean these two data sets, the tidyverse package was utilized. Moreover, these data were subsetted to only include all of the races identified in the survey (race 01-15), income, weight, height, education level, if participants believed smoking harms health status, days participants had 4 or more drinks in a row, how often participants were physically active for >= 10 minutes, if participants believed they were in good health or not, if participants reported having heart disease and/or diabetes, if participants smoked alone, how many people participants smoked with, sex, smoking status, cigarette brand, cigarettes per day, unit of time smoking daily, age when daily smoking began, age when first smoked, and how long smoking daily. Additionally, values that were input as “DO NOT READ” or “REFUSED” indicating that the participant did not answer the question were recoded as NA. 
+
+From there, these columns were renamed to better reflect the variables. For example, “race01” became “white”, “race02” became “black”, “veredu” became “school_level”, “smok6num” became “how_long_smoking_daily”, etc.. A full list of the specific 29 variables that were renamed can be found in the RMD file. From there, the two data sets were joined together on a unique participant ID. 
+
+Furthermore, we created new variables from the existing variables to aid in the analysis. Specifically, the “bmi” variable was created from “wgtinlbs” and “htinfeet” variables. Next, the “packs_per_day” variable was created from using “cigs_per_day” / 20. Lastly, the “packs_per_year” variable was created after all of the values in “unit_of_time_smoking_daily” were recoded to be in years. We included these new variables in a descriptive statistics table using the kable package (Table 1). 
+
+In order to visualize the average number of pack-years on the two disease outcomes (figure 1), we created a boxplot using the boxplot function. Figure 1 compares occurrence of heart disease on the x-axis and cigarette pack-years on the y-axis. Figure 2 compares the occurrence of diabetes on the x-axis and cigarette pack-years on the y-axis.
+
+To visualize and compare smoking status, race, and income (figure 3), a bubble plot was created using ggplot2 package and the geom_count function to obtain the proportion of counts. We started by recoding income levels as 1 = $20,000 or less, 2 = $20,001 to $30,000, 3 = $30,001 to $50,000, 4 = $50,001 to $75,000, 5 = $75,001 to $100,000, 6 = $100,001 to $150,000, and 7 = Over $150,000. Race was inputted as our x-axis and income as our y-axis, and we used the facet_wrap function to facet by our categorical variable smoking_status.
+
+To visualize diabetes status, race, and income (figure 4), we created a bar chart with ggplot2 package. Race was inputted as our y-axis, diabetes was inputted as our fill variable for the “yes” and “no” levels, and we used the facet_wrap function to facet by our income levels. Figure 5 was also a bar chart to visualize heart disease status, race, and income with race as our y-axis, heart disease as our fill variable for the “yes” and “no” levels, and we used the facet_wrap function to facet by our income levels.
+
+
+# Results
+
+Through the analysis, it was discovered that the mean and standard deviation amount of pack-years in this study among participants was 21.46 and 17.94, respectively. Additionally, the visualizations provided in this report suggest that heart disease and diabetes outcomes were more commonly reported in participants who had a higher median number of pack-years when compared to participants who did not report heart disease and diabetes outcomes. Lastly, the analysis indicated that the participants who reported their race as white and income as $20,000 or less on an annual basis in this study were the largest proportion of current daily smokers. Additionally, white participants were more likely to have heart disease or diabetes if they made $30,001 or below annually. Overall, heart disease and diabetes were not prevalent in this study population for other races.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(readr)
+library(readxl)
+library(janitor)
+library(stringr)
+
+#creating a file path for both data sets
+file_path_smoker <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_smoker_data.csv"
+file_path_race <- "https://raw.githubusercontent.com/PHW290/phw251_projectdata/main/ca_csc_outcome_race_data.csv"
+
+#importing full file of both data sets
+smoker_data <- read_csv(file_path_smoker)
+race_data <- read_csv(file_path_race)
+
+raceclean <- clean_names(race_data)
+smokerclean <- clean_names(smoker_data)
+
+#subset columns from race dataset
+race <- raceclean %>% select(id, race01, race02, race03, race04, race05, 
+race06, race07, race08, race09, race10, race11, race12, race13, race14, race15, 
+income,vereduc, wgtinlbs, htinfeet, goodhlth, harmhlth, smokalone, acqsmoke, 
+act10min,drinkfiv, heartdis, diabetes)
+
+#rename columns
+racedata <- race %>% rename(heart_disease=heartdis, 
+white=race01, black=race02, japanese=race03, chinese=race04, 
+filipino=race05, korean=race06, asian_or_pacific_islander=race07, 
+mexican=race09, 
+hispanic_latino=race10, other=race11, vietnamese=race12, 
+asian_indian=race13, refused=race14, dont_know=race15, 
+americanindian_or_alaskannative=race08, school_level = vereduc, 
+smoking_harms_health = harmhlth, how_many_people_smoke = acqsmoke, 
+physically_active_for_10min = act10min, 
+days_had_4ormore_drinks_inrow = drinkfiv)
+
+#recode race columns into one column
+racedata1 <- racedata %>% mutate(race = case_when(white == "Yes" ~ "white", 
+black == "Yes" ~ "black", japanese == "Yes" ~ "japanese", 
+chinese == "Yes" ~ "chinese", filipino == "Yes" ~ "filipino", 
+korean == "Yes" ~ "korean", 
+asian_or_pacific_islander == "Yes" ~ "asian_or_pacific_islander", 
+mexican == "Yes" ~ "mexican", hispanic_latino == "Yes" ~ "hispanic_latino", 
+other == "Yes" ~ "other", vietnamese == "Yes" ~ "vietnamese", 
+asian_indian == "Yes" ~ "asian_indian", refused == "Yes" ~ "refused", 
+dont_know == "Yes" ~ "dont know", 
+americanindian_or_alaskannative == "Yes" ~ "americanindian_or_alaskannative"))
+
+#subset race data that is ready to combine with smoker data
+recodedrace_data <- racedata1 %>% select(id, race, income, school_level, wgtinlbs, 
+htinfeet, goodhlth, smoking_harms_health, smokalone, how_many_people_smoke, 
+physically_active_for_10min, 
+days_had_4ormore_drinks_inrow, heart_disease, 
+diabetes)
+
+#subset columns from smoker data
+smokerdata <- smokerclean %>% select(psraid, rightsex, smokstat, howmany, 
+smok6num, smok6uni, smkbrand, smk1age, smkage)
+
+#rename columns in smoker data
+datasmoker <- smokerdata %>% rename(sex = rightsex, smoking_status = smokstat, 
+cig_brand = smkbrand, cigs_per_day = howmany, 
+how_long_smoking_daily = smok6num, unit_of_time_smoking_daily = smok6uni, 
+age_when_first_smoked = smk1age, age_when_daily_smoking_began = smkage, 
+id = psraid)
+
+#make id variables the same type in both datasets to combine datasets by id
+newracedata <- cbind(recodedrace_data, i_d = datasmoker$id)
+newracedata1 <- newracedata %>% select(i_d, race, income, school_level, wgtinlbs, 
+htinfeet, goodhlth, smoking_harms_health, smokalone, how_many_people_smoke, 
+physically_active_for_10min, 
+days_had_4ormore_drinks_inrow, heart_disease, 
+diabetes) %>% rename(id = i_d)
+
+#combine datasets by ID
+combineddata <- inner_join(newracedata1, datasmoker, by = c("id"))
+
+#change DO NOT READ values to NA data values because
+combineddata[combineddata == "(DO NOT READ) Refused"] <- NA
+combineddata[combineddata == "(DO NOT READ) Don't know"] <- NA
+
+#variable 1, bmi
+new_variables_data_1 <- combineddata %>%
+  mutate(bmi = (wgtinlbs * 0.45359237) / (htinfeet * 0.304)^2)
+
+#make packs per day variable to create packs per year variable
+#packs per day is cigs_per_day was divided by 20 because there are 20 cigarettes in 1 pack
+#variable 2
+new_variables_data_2 <- new_variables_data_1 %>%
+  mutate(cigs_per_day = as.numeric(cigs_per_day),
+         packs_per_day = (cigs_per_day / 20))
+
+#variable 3
+new_variables_data_2 <- new_variables_data_2 %>% 
+  mutate(how_long_smoking_daily = as.numeric(how_long_smoking_daily))
+
+recoding_variables <- new_variables_data_2 %>% 
+mutate(how_long_smoking_daily = case_when(unit_of_time_smoking_daily == "Days" ~ 
+how_long_smoking_daily/365, unit_of_time_smoking_daily == "Months" ~ 
+how_long_smoking_daily/12, unit_of_time_smoking_daily == "Years" ~ 
+  round(how_long_smoking_daily, 2)))
+
+final_variables_data <- recoding_variables %>%
+  mutate(how_long_smoking_daily = as.numeric(how_long_smoking_daily),
+         pack_years = round((packs_per_day) * (how_long_smoking_daily), 2))
+
+```
+### Figure 1
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+data_visual_one <- final_variables_data %>%
+  select(c("pack_years", "heart_disease", "diabetes"))
+
+#Box plot of pack years by heart disease
+boxplot_one <- boxplot(pack_years~heart_disease, data = data_visual_one, 
+main="Figure 1: Pack-Years and Heart Disease", 
+xlab= "Heart Disease Reported During Study", ylab="Cigarette Pack Years")
+```
+
+Figure 1: Based on this plot, a participant in this study who reported having Heart Disease, on average, had a wider range of cigarette pack years and higher median number of pack years when compared to another participant in the same study without heart disease. 
+
+### Figure 2
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+#Box plot of pack years by diabetes
+boxplot_two <- boxplot(pack_years~diabetes, data = data_visual_one, 
+main="Figure 2: Pack-Years and Diabetes", 
+xlab= "Diabetes Reported During Study", ylab="Cigarette Pack Years")
+```
+
+Figure 2. Based on this plot, a participant in this study who reported having Diabetes, on average, had a wider range of cigarette pack years and higher median number of pack years when compared to another participant in the same study without Diabetes.
+
+### Figure 3
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+visualization2 <- final_variables_data %>% select(id, race, income, 
+heart_disease, diabetes, sex, smoking_status, age_when_first_smoked)
+
+visualization2 <- visualization2 %>% mutate(income = case_when(income == "$20,000 or less" ~ 1, 
+income == "$20,001 to $30,000" ~ 2, income == "$30,001 to $50,000" ~ 3, 
+income == "$50,001 to $75,000" ~ 4, income == "$75,001 to $100,000" ~ 5, 
+income == "$100,001 to $150,000 or" ~ 6, income == "Over $150,000?" ~ 7)) %>% 
+mutate(income = as.numeric(unlist(income)))
+
+library(ggplot2)
+ggplot(visualization2, aes(x = race, y = income)) + 
+geom_count(aes(color = ..prop.., size = ..prop.., group = 1)) + 
+guides(color = 'legend') + theme_classic() + labs(x = "Race", 
+y = "Income", 
+title = "Figure 3: Proportion of Daily Smokers Versus Non-Daily Smokers by Race & Income", 
+subtitle = "2011 California Smokers Cohort",
+caption = "Note: y-axis values were recoded to 1 = $20,000 or less, 2: = $20,001 to $30,000, 
+3 = $30,001 
+to $50,000, 4 = $50,001 to $75,000, 5 = $75,001 to $100,000, 6 = $100,001 to 
+$150,000, 7 = Over $150,000") + facet_wrap(~smoking_status) + 
+theme(axis.text.x = element_text(angle = 90)) + scale_size_area() + theme(
+plot.title = element_text(color = "black", size = 10, face = "bold", 
+hjust = 0.5), plot.caption = element_text(size = 7, hjust = 1, 
+color = "blue"), plot.subtitle = element_text(size = 9, color = "blue", face = "italic", 
+hjust = 0.5)) + theme(legend.position = "right")
+```
+
+Figure 3. Based on this plot, the largest proportion of current daily smokers in this study are white and earn $20,000 dollars or less on an annual basis.
+
+### Figure 4
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+visualization3 <- visualization2 %>% drop_na() %>% mutate(income = 
+recode(income, "1" = "$20,000 or Less", "2" = "$20,001 to $30,000", 
+"3" = "$30,001 to $50,000", "4" = "$50,001 to $75,000", "5" = "$75,001 to 
+$100,000"))
+
+ggplot(visualization3, aes(y = race, fill = diabetes)) + geom_bar() + 
+facet_wrap(~income, scales = "free_x") + theme_minimal() + labs(x = "Count", 
+y = "Race", fill = "Diabetes", 
+title = "Figure 4: Counts of Diabetes Outcomes Per Race and Income Status", 
+subtitle = "2011 California Smokers Cohort") + 
+  scale_fill_manual(values = c("#d8b365", "#5ab4ac")) + theme(
+plot.title = element_text(color = "black", size = 11, face = "bold", 
+hjust = 0.5), plot.subtitle = element_text(size = 9, color = "#5ab4ac", 
+                                           face = "bold", hjust = 0.5))
+```
+
+Figure 4: Based on this plot, white participants were more likely to have diabetes than any other race; however, diabetes was not a prevalent disease in this group of particiapnts.
+
+### Figure 5
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(visualization3, aes(y = race, fill = heart_disease)) + geom_bar() + 
+  facet_wrap(~income, scales = "free_x") + theme_minimal() + labs(x = "Count", 
+y = "Race", fill = "Heart Disease", 
+title = "Figure 5: Counts of Heart Disease Outcomes Per Race and Income Status", 
+subtitle = "2011 California Smokers Cohort") + 
+  scale_fill_manual(values = c("#C3D7A4", "#52854C")) + theme(
+plot.title = element_text(color = "black", size = 11, face = "bold", 
+hjust = 0.5), plot.subtitle = element_text(size = 9, color = "#52854C", 
+                                           face = "bold", hjust = 0.5))
+```
+
+Figure 5: Based on this plot, participants who were more likely to have heart disease were white and made below $30,001 on an annual basis. Heart disease was not a prevalent disease in this group of participants.
+
+### Table 1
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(kableExtra)
+df_ofdescriptive_stats <- data.frame("Variable" = 
+c("Pack Years", "Cigs Per Day", "BMI", "Packs Per Day"), "Mean" = 
+c(21.46, 13.89, 33.38, 0.69), "Standard Deviation" = 
+c(17.94, 9.30, 10.67, 0.47), "Range" = c(119.9, 59, 161.29, 2.95))
+
+kable(df_ofdescriptive_stats, booktabs = T, longtable=T, col.names = 
+        c("Variable", "Mean", "SD", "Range"), align= 'lcccc',
+caption= "Descriptive Statistics of Four Variables from 2011 California 
+Smokers Cohort")
+```
+
+# Discussion
+
+Based on the results, CDPH should focus on developing policies that help regulate the price of tobacco products. Since it was discovered that the largest proportion of current daily smokers are low-income white people, a policy in specific-counties establishing minimum-pack and minimum-price for tobacco retailers could help prevent the tobacco industry from targeting these price-sensitive customers. If CDPH were to help institute the passage of county-wide price regulation policies, low-income people would be less likely to buy tobacco products because the products would not be as readily accessible to them due to the price point. Additionally, CDPH should work on developing anti-tobacco messaging in communities that are composed of mostly white people after reviewing commonly-used tobacco ad tactics in these communities. In other words, the tobacco industry typically targets white, usually rural, communities with ads showing images of farms, cowboys, blue-collar workers, firefighters, police officers, etc. all using tobacco products because ‘it’s a way of life’ which can be quite influential in initiating smoking among these community members. If CDPH were to design anti-tobacco messaging on local radios, highway billboards, tv commercials based on geofencing in these predominantly white communities, it would draw attention to the predatory ad behavior used by the tobacco industry and white community members would be more likely to recognize it after and less likely to ‘fall’ for the messenging and initiate usage of these deadly tobacco products. 
+
+These data have limitations as participant home and buying locations were not collected during the study. In other words, the place a participant lives and buys tobacco products can greatly influence the prevalence and quantity of tobacco consumption and specific products (cigarettes, chewing tobacco, synthetic tobacco, vapes, cigars, etc). It is well documented in various pieces of peer-reviewed literature that rural communities specifically are targeted by tobacco industry couponing, ads, and other influences which increase tobacco consumption in these areas, so it makes sense from an analysis point of view that white, low-income participants in this study were the largest proportion of smokers. 
+
