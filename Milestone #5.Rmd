@@ -109,6 +109,9 @@ diabetes) %>% rename(id = i_d)
 #combine datasets by ID
 combineddata <- inner_join(newracedata1, datasmoker, by = c("id"))
 
+#combine races
+combineddata <- combineddata %>% mutate(race = case_when(race == "chinese" ~ "Asian/PacificIslander", race == "vietnamese" ~ "Asian/PacificIslander", race == "japanese" ~ "Asian/PacificIslander", race == "mexican" ~ "Hispanic/Latino", race == "hispanic_latino" ~ "Hispanic/Latino", race == "asian_or_pacific_islander" ~ "Asian/PacificIslander", race == "white" ~ "White", race == "black" ~ "Black", race == "filipino" ~ "Filipino", race == "americanindian_or_alaskannative" ~ "AmericanIndian/AlaskanNative", race == "other" ~ "Other", race == "refused" ~ "Don't Know", race == "dont know" ~ "Unknown", race == "asian_indian" ~ "Asian/PacificIslander", race == "Don't Know" ~ "Unknown", TRUE ~ as.character(race)))
+
 #change DO NOT READ values to NA data values because
 combineddata[combineddata == "(DO NOT READ) Refused"] <- NA
 combineddata[combineddata == "(DO NOT READ) Don't know"] <- NA
@@ -139,6 +142,44 @@ final_variables_data <- recoding_variables %>%
          pack_years = round((packs_per_day) * (how_long_smoking_daily), 2))
 
 ```
+### Table 1
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(kableExtra)
+df_ofdescriptive_stats <- data.frame("Variable" = 
+c("Pack Years", "Cigs Per Day", "BMI", "Packs Per Day"), "Mean" = 
+c(21.46, 13.89, 33.38, 0.69), "Standard Deviation" = 
+c(17.94, 9.30, 10.67, 0.47), "Range" = c(119.9, 59, 161.29, 2.95))
+
+kable(df_ofdescriptive_stats, booktabs = T, longtable=T, col.names = 
+        c("Variable", "Mean", "SD", "Range"), align= 'lcccc',
+caption= "Descriptive Statistics of Four Variables from 2011 California 
+Smokers Cohort")
+```
+
+### Table 2
+```{recho=FALSE, message=FALSE, warning=FALSE}
+visualization2 <- final_variables_data %>% select(id, race, income, 
+heart_disease, diabetes, sex, smoking_status, age_when_first_smoked)
+
+visualization2 <- visualization2 %>% mutate(income = case_when(income == "$20,000 or less" ~ 1, 
+income == "$20,001 to $30,000" ~ 2, income == "$30,001 to $50,000" ~ 3, 
+income == "$50,001 to $75,000" ~ 4, income == "$75,001 to $100,000" ~ 5, 
+income == "$100,001 to $150,000 or" ~ 6, income == "Over $150,000?" ~ 7)) %>% 
+mutate(income = as.numeric(unlist(income)))
+
+visualization2 <- visualization2 %>% drop_na()
+
+x <- visualization2 %>% group_by(income, race) %>% count(smoking_status) %>% as.data.frame()
+x2 <- x %>% pivot_wider(names_from = income, values_from = n)
+v3 <- as.data.frame(x2)
+
+kable(v3, booktabs = T, longtable=T, col.names = 
+        c("Race", "Smoking Status", "$20,000 or Less", "$20,001 to $30,000", "$30,001 
+to $50,000", "$50,001 to $75,000", "$75,001 to $100,000"), align= 'lcccc',
+caption= "Descriptive Statistics of Four Variables from 2011 California 
+Smokers Cohort")
+```
+
 ### Figure 1
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 data_visual_one <- final_variables_data %>%
@@ -164,15 +205,6 @@ Figure 2. Based on this plot, a participant in this study who reported having Di
 
 ### Figure 3
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-visualization2 <- final_variables_data %>% select(id, race, income, 
-heart_disease, diabetes, sex, smoking_status, age_when_first_smoked)
-
-visualization2 <- visualization2 %>% mutate(income = case_when(income == "$20,000 or less" ~ 1, 
-income == "$20,001 to $30,000" ~ 2, income == "$30,001 to $50,000" ~ 3, 
-income == "$50,001 to $75,000" ~ 4, income == "$75,001 to $100,000" ~ 5, 
-income == "$100,001 to $150,000 or" ~ 6, income == "Over $150,000?" ~ 7)) %>% 
-mutate(income = as.numeric(unlist(income)))
-
 library(ggplot2)
 ggplot(visualization2, aes(x = race, y = income)) + 
 geom_count(aes(color = ..prop.., size = ..prop.., group = 1)) + 
@@ -188,59 +220,12 @@ theme(axis.text.x = element_text(angle = 90)) + scale_size_area() + theme(
 plot.title = element_text(color = "black", size = 10, face = "bold", 
 hjust = 0.5), plot.caption = element_text(size = 7, hjust = 1, 
 color = "blue"), plot.subtitle = element_text(size = 9, color = "blue", face = "italic", 
-hjust = 0.5)) + theme(legend.position = "right")
+hjust = 0.5)) + theme(legend.position = "right") + ylim(1,8)
 ```
 
-Figure 3. Based on this plot, the largest proportion of current daily smokers in this study are white and earn $20,000 dollars or less on an annual basis.
+Figure 3. Function geom_count counts the number of observations at each location, then maps the count to point area. We chose this function because we have discrete data and overplotting. In this graph, we changed the counts to proportions.
 
-### Figure 4
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-visualization3 <- visualization2 %>% drop_na() %>% mutate(income = 
-recode(income, "1" = "$20,000 or Less", "2" = "$20,001 to $30,000", 
-"3" = "$30,001 to $50,000", "4" = "$50,001 to $75,000", "5" = "$75,001 to 
-$100,000"))
-
-ggplot(visualization3, aes(y = race, fill = diabetes)) + geom_bar() + 
-facet_wrap(~income, scales = "free_x") + theme_minimal() + labs(x = "Count", 
-y = "Race", fill = "Diabetes", 
-title = "Figure 4: Counts of Diabetes Outcomes Per Race and Income Status", 
-subtitle = "2011 California Smokers Cohort") + 
-  scale_fill_manual(values = c("#d8b365", "#5ab4ac")) + theme(
-plot.title = element_text(color = "black", size = 11, face = "bold", 
-hjust = 0.5), plot.subtitle = element_text(size = 9, color = "#5ab4ac", 
-                                           face = "bold", hjust = 0.5))
-```
-
-Figure 4: Based on this plot, white participants were more likely to have diabetes than any other race; however, diabetes was not a prevalent disease in this group of particiapnts.
-
-### Figure 5
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-ggplot(visualization3, aes(y = race, fill = heart_disease)) + geom_bar() + 
-  facet_wrap(~income, scales = "free_x") + theme_minimal() + labs(x = "Count", 
-y = "Race", fill = "Heart Disease", 
-title = "Figure 5: Counts of Heart Disease Outcomes Per Race and Income Status", 
-subtitle = "2011 California Smokers Cohort") + 
-  scale_fill_manual(values = c("#C3D7A4", "#52854C")) + theme(
-plot.title = element_text(color = "black", size = 11, face = "bold", 
-hjust = 0.5), plot.subtitle = element_text(size = 9, color = "#52854C", 
-                                           face = "bold", hjust = 0.5))
-```
-
-Figure 5: Based on this plot, participants who were more likely to have heart disease were white and made below $30,001 on an annual basis. Heart disease was not a prevalent disease in this group of participants.
-
-### Table 1
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-library(kableExtra)
-df_ofdescriptive_stats <- data.frame("Variable" = 
-c("Pack Years", "Cigs Per Day", "BMI", "Packs Per Day"), "Mean" = 
-c(21.46, 13.89, 33.38, 0.69), "Standard Deviation" = 
-c(17.94, 9.30, 10.67, 0.47), "Range" = c(119.9, 59, 161.29, 2.95))
-
-kable(df_ofdescriptive_stats, booktabs = T, longtable=T, col.names = 
-        c("Variable", "Mean", "SD", "Range"), align= 'lcccc',
-caption= "Descriptive Statistics of Four Variables from 2011 California 
-Smokers Cohort")
-```
+Based on this plot, the largest proportion of current daily smokers in this study are white and earn $20,000 dollars or less on an annual basis.
 
 # Discussion
 
