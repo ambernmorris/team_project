@@ -157,7 +157,7 @@ Smokers Cohort")
 ```
 
 ### Table 2
-```{recho=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 visualization2 <- final_variables_data %>% select(id, race, income, 
 heart_disease, diabetes, sex, smoking_status, age_when_first_smoked)
 
