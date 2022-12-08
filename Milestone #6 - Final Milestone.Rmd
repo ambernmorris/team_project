@@ -152,8 +152,10 @@ c(17.94, 9.30, 10.67, 0.47), "Range" = c(119.9, 59, 161.29, 2.95))
 
 kable(df_ofdescriptive_stats, booktabs = T, longtable=T, col.names = 
         c("Variable", "Mean", "SD", "Range"), align= 'lcccc',
-caption= "Descriptive Statistics of Four Variables from 2011 California 
-Smokers Cohort")
+caption= "Descriptive Statistics from 2011 California 
+Smokers Cohort") %>%
+  kable_styling(latex_options = "striped")
+
 ```
 
 ### Table 2
@@ -176,7 +178,7 @@ v3 <- as.data.frame(x2)
 kable(v3, booktabs = T, longtable=T, col.names = 
         c("Race", "Smoking Status", "$20,000 or Less", "$20,001 to $30,000", "$30,001 
 to $50,000", "$50,001 to $75,000", "$75,001 to $100,000"), align= 'lcccc',
-caption= "Descriptive Statistics of Four Variables from 2011 California 
+caption= "Descriptive Statistics from 2011 California 
 Smokers Cohort")
 ```
 
@@ -229,7 +231,7 @@ Based on this plot, the largest proportion of current daily smokers in this stud
 
 # Discussion
 
-Based on the results, CDPH should focus on developing policies that help regulate the price of tobacco products. Since it was discovered that the largest proportion of current daily smokers are low-income white people, a policy in specific-counties establishing minimum-pack and minimum-price for tobacco retailers could help prevent the tobacco industry from targeting these price-sensitive customers. If CDPH were to help institute the passage of county-wide price regulation policies, low-income people would be less likely to buy tobacco products because the products would not be as readily accessible to them due to the price point. Additionally, CDPH should work on developing anti-tobacco messaging in communities that are composed of mostly white people after reviewing commonly-used tobacco ad tactics in these communities. In other words, the tobacco industry typically targets white, usually rural, communities with ads showing images of farms, cowboys, blue-collar workers, firefighters, police officers, etc. all using tobacco products because ‘it’s a way of life’ which can be quite influential in initiating smoking among these community members. If CDPH were to design anti-tobacco messaging on local radios, highway billboards, tv commercials based on geofencing in these predominantly white communities, it would draw attention to the predatory ad behavior used by the tobacco industry and white community members would be more likely to recognize it after and less likely to ‘fall’ for the messenging and initiate usage of these deadly tobacco products. 
+Based on the results, CDPH should focus on developing policies that help regulate the price of tobacco products. Since it was discovered that the largest proportion of current daily smokers are low-income white people, a policy in specific-counties establishing minimum-pack and minimum-price for tobacco retailers could help prevent the tobacco industry from targeting these price-sensitive customers. If CDPH were to help institute the passage of county-wide price regulation policies, low-income people would be less likely to buy tobacco products because the products would not be as readily accessible to them due to the price point. Additionally, CDPH should work on developing anti-tobacco messaging in communities that are composed of mostly white people after reviewing commonly-used tobacco ad tactics in these communities. In other words, the tobacco industry typically targets white, usually rural, communities with ads showing images of farms, cowboys, blue-collar workers, firefighters, police officers, etc. all using tobacco products because ‘it’s a way of life’ which can be quite influential in initiating smoking among these community members. If CDPH were to design anti-tobacco messaging on local radios, highway billboards, tv commercials (based on geofencing in these predominantly white communities), it would draw attention to the predatory ad behavior used by the tobacco industry and white community members would be more likely to recognize it after and less likely to ‘fall’ for the messaging and initiate usage of these deadly tobacco products. Lastly, after examining cigarette pack-years calculation and uncovering the median consumption of these products, the participants in this study who reported having Diabetes and/or Heart Disease also consume more cigarettes. Again, this suggests that this higher consumption of these products could potentially cause and/or increase risk for Diabetes and/or Heart Disease. As such, CDPH should consider mentioning this relationship in future anti-tobacco messaging campaigns in order to pique and further inform communities impacted.
 
 These data have limitations as participant home and buying locations were not collected during the study. In other words, the place a participant lives and buys tobacco products can greatly influence the prevalence and quantity of tobacco consumption and specific products (cigarettes, chewing tobacco, synthetic tobacco, vapes, cigars, etc). It is well documented in various pieces of peer-reviewed literature that rural communities specifically are targeted by tobacco industry couponing, ads, and other influences which increase tobacco consumption in these areas, so it makes sense from an analysis point of view that white, low-income participants in this study were the largest proportion of smokers. 
 
