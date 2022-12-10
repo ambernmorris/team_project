@@ -17,20 +17,18 @@ These data are from a survey designed to investigate factors associated with tob
 
 To clean these two data sets, the tidyverse package was utilized. Moreover, these data were subsetted to only include all of the races identified in the survey (race 01-15), income, weight, height, education level, if participants believed smoking harms health status, days participants had 4 or more drinks in a row, how often participants were physically active for >= 10 minutes, if participants believed they were in good health or not, if participants reported having heart disease and/or diabetes, if participants smoked alone, how many people participants smoked with, sex, smoking status, cigarette brand, cigarettes per day, unit of time smoking daily, age when daily smoking began, age when first smoked, and how long smoking daily. Additionally, values that were input as “DO NOT READ” or “REFUSED” indicating that the participant did not answer the question were recoded as NA. 
 
-From there, these columns were renamed to better reflect the variables. For example, “race01” became “white”, “race02” became “black”, “veredu” became “school_level”, “smok6num” became “how_long_smoking_daily”, etc.. A full list of the specific 29 variables that were renamed can be found in the RMD file. From there, the two data sets were joined together on a unique participant ID. 
+From there, these columns were renamed to better reflect the variables. For example, “race01” became “white”, “race02” became “black”, “veredu” became “school_level”, “smok6num” became “how_long_smoking_daily”, etc.. Because of small numbers for some race categories, we grouped certain races together such as Mexican and Hispanic/Latino were grouped together. A full list of the specific 29 variables that were renamed can be found in the RMD file. From there, the two data sets were joined together on a unique participant ID. 
 
 Furthermore, we created new variables from the existing variables to aid in the analysis. Specifically, the “bmi” variable was created from “wgtinlbs” and “htinfeet” variables. Next, the “packs_per_day” variable was created from using “cigs_per_day” / 20. Lastly, the “packs_per_year” variable was created after all of the values in “unit_of_time_smoking_daily” were recoded to be in years. We included these new variables in a descriptive statistics table using the kable package (Table 1). 
 
 In order to visualize the average number of pack-years on the two disease outcomes (figure 1), we created a boxplot using the boxplot function. Figure 1 compares occurrence of heart disease on the x-axis and cigarette pack-years on the y-axis. Figure 2 compares the occurrence of diabetes on the x-axis and cigarette pack-years on the y-axis.
 
-To visualize and compare smoking status, race, and income (figure 3), a bubble plot was created using ggplot2 package and the geom_count function to obtain the proportion of counts. We started by recoding income levels as 1 = $20,000 or less, 2 = $20,001 to $30,000, 3 = $30,001 to $50,000, 4 = $50,001 to $75,000, 5 = $75,001 to $100,000, 6 = $100,001 to $150,000, and 7 = Over $150,000. Race was inputted as our x-axis and income as our y-axis, and we used the facet_wrap function to facet by our categorical variable smoking_status.
-
-To visualize diabetes status, race, and income (figure 4), we created a bar chart with ggplot2 package. Race was inputted as our y-axis, diabetes was inputted as our fill variable for the “yes” and “no” levels, and we used the facet_wrap function to facet by our income levels. Figure 5 was also a bar chart to visualize heart disease status, race, and income with race as our y-axis, heart disease as our fill variable for the “yes” and “no” levels, and we used the facet_wrap function to facet by our income levels.
+To visualize and compare smoking status, race, and income we created Tabel 2 with the counts of participants by race, smoking status, and income. We also created a bubble plot (figure 3) using ggplot2 package and the geom_count function to obtain the proportion of counts. We used function geom_count to count the number of observations at each location, because we have discrete data and overplotting. In this graph, we changed the counts to proportions. We started by recoding income levels as 1 = $20,000 or less, 2 = $20,001 to $30,000, 3 = $30,001 to $50,000, 4 = $50,001 to $75,000, 5 = $75,001 to $100,000, 6 = $100,001 to $150,000, and 7 = Over $150,000. Race was inputted as our x-axis and income as our y-axis, and we used the facet_wrap function to facet by our categorical variable smoking_status.
 
 
 # Results
 
-Through the analysis, it was discovered that the mean and standard deviation amount of pack-years in this study among participants was 21.46 and 17.94, respectively. Additionally, the visualizations provided in this report suggest that heart disease and diabetes outcomes were more commonly reported in participants who had a higher median number of pack-years when compared to participants who did not report heart disease and diabetes outcomes. Lastly, the analysis indicated that the participants who reported their race as white and income as $20,000 or less on an annual basis in this study were the largest proportion of current daily smokers. Additionally, white participants were more likely to have heart disease or diabetes if they made $30,001 or below annually. Overall, heart disease and diabetes were not prevalent in this study population for other races.
+Through the analysis, it was discovered that the mean and standard deviation amount of pack-years in this study among participants was 21.46 and 17.94, respectively. Additionally, the visualizations provided in this report suggest that heart disease and diabetes outcomes were more commonly reported in participants who had a higher median number of pack-years when compared to participants who did not report heart disease and diabetes outcomes. Lastly, the analysis indicated that the participants who reported their race as white and income as $20,000 or less on an annual basis in this study were the largest proportion of current daily smokers. Additionally, no participants made over $100,001 dollars.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -178,8 +176,8 @@ v3 <- as.data.frame(x2)
 kable(v3, booktabs = T, longtable=T, col.names = 
         c("Race", "Smoking Status", "$20,000 or Less", "$20,001 to $30,000", "$30,001 
 to $50,000", "$50,001 to $75,000", "$75,001 to $100,000"), align= 'lcccc',
-caption= "Descriptive Statistics from 2011 California 
-Smokers Cohort")
+caption= "Counts of Participants by Race, Smoking Status, and Income from 2011 California 
+Smokers Cohort") %>% kable_styling(latex_options = "striped")
 ```
 
 ### Figure 1
@@ -225,9 +223,7 @@ color = "blue"), plot.subtitle = element_text(size = 9, color = "blue", face = "
 hjust = 0.5)) + theme(legend.position = "right") + ylim(1,8)
 ```
 
-Figure 3. Function geom_count counts the number of observations at each location, then maps the count to point area. We chose this function because we have discrete data and overplotting. In this graph, we changed the counts to proportions.
-
-Based on this plot, the largest proportion of current daily smokers in this study are white and earn $20,000 dollars or less on an annual basis.
+Figure 3. Based on this plot, the largest proportion of current daily smokers in this study are white and earn $20,000 dollars or less on an annual basis.
 
 # Discussion
 
